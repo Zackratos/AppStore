@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">AppStore</string>
+    <string name="title_activity_test">TestActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <!--http-->
+    <string name="http_api_exception">接口异常</string>
+    <string name="http_connect_exception">网络连接异常</string>
+    <string name="http_http_exception">Http 异常</string>
+    <string name="http_unknown_exception">未知异常</string>
+
+    <!--main-->
+    <string name="main_recommend">推荐</string>
+    <string name="main_ranking">排行</string>
+    <string name="main_game">游戏</string>
+    <string name="main_category">分类</string>
+
+    <!--recommend-->
+    <string name="rec_app">热门应用</string>
+    <string name="rec_game">热门游戏</string>
+    <string name="rec_theme">热门主题</string>
+</resources>
