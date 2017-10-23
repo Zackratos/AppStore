@@ -12,8 +12,6 @@ import org.zackratos.appstore.result.AppInfo;
 import org.zackratos.appstore.result.PageBean;
 import org.zackratos.appstore.utils.RxUtils;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
@@ -47,10 +45,10 @@ public class RankPresenter extends RxPresenter<RankContract.View> implements Ran
         this.topListParams = params;
     }
 
+//    private Observable<PageBean<AppInfo>> topListObservable;
 
-    @Override
-    public void topList(int page) {
-        Disposable disposable = Observable.just(page)
+    private Observable<PageBean<AppInfo>> getTopListObservable() {
+        return Observable.just(page)
                 .subscribeOn(Schedulers.io())
                 .map(new Function<Integer, String>() {
                     @Override
@@ -66,17 +64,24 @@ public class RankPresenter extends RxPresenter<RankContract.View> implements Ran
                     }
                 })
                 .compose(RxUtils.<PageBean<AppInfo>>handlerBaseError())
-                .compose(RxUtils.<AppInfo>handlerPageError())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<List<AppInfo>>() {
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+
+    @Override
+    public void loadFirstPager() {
+        page = 0;
+        Disposable disposable = getTopListObservable()
+                .subscribe(new Consumer<PageBean<AppInfo>>() {
                     @Override
-                    public void accept(List<AppInfo> appInfos) throws Exception {
-                        view.setData(appInfos);
+                    public void accept(PageBean<AppInfo> appInfoPageBean) throws Exception {
+                        view.setFirstData(appInfoPageBean);
+                        page++;
                     }
                 }, new ErrorConsumer() {
                     @Override
                     public void handlerError(@StringRes int messageId) {
-
+                        view.loadFirstFail(messageId);
                     }
                 });
 
@@ -84,6 +89,26 @@ public class RankPresenter extends RxPresenter<RankContract.View> implements Ran
 
     }
 
+    private int page;
+
+    @Override
+    public void loadMore() {
+        Disposable disposable = getTopListObservable()
+                .subscribe(new Consumer<PageBean<AppInfo>>() {
+                    @Override
+                    public void accept(PageBean<AppInfo> appInfoPageBean) throws Exception {
+                        view.setMoreData(appInfoPageBean);
+                        page++;
+                    }
+                }, new ErrorConsumer() {
+                    @Override
+                    public void handlerError(@StringRes int messageId) {
+                        view.loadMoreFail(messageId);
+                    }
+                });
+
+        addSubscribe(disposable);
+    }
 
 
 

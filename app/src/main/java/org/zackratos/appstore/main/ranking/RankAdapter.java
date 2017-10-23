@@ -1,6 +1,5 @@
 package org.zackratos.appstore.main.ranking;
 
-import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -24,7 +23,8 @@ public class RankAdapter extends BaseQuickAdapter<AppInfo, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, AppInfo item) {
-        helper.setText(R.id.text_2, item.getDisplayName())
+        helper.setText(R.id.text_1, String.valueOf(item.getPosition() + 1))
+                .setText(R.id.text_2, item.getDisplayName())
                 .setText(R.id.text_3, item.getBriefShow());
     }
 }

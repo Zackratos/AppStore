@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -54,28 +53,31 @@ public class RecommendFragment extends RefreshFragment<RecommendPresenter> imple
 
     private RecommendAdapter adapter;
 
+    private void initAdapter(List<MultiItemEntity> entities) {
+        adapter = new RecommendAdapter(entities);
+        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                switch (view.getId()) {
+                    case R.id.text_1:
+                        break;
+                    case R.id.text_2:
+                        break;
+                    case R.id.text_3:
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
+        rv.setAdapter(adapter);
+    }
+
     @Override
     public void setData(List<MultiItemEntity> entities) {
         refreshSuccess();
         if (adapter == null) {
-            adapter = new RecommendAdapter(entities);
-            adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-                @Override
-                public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                    switch (view.getId()) {
-                        case R.id.text_1:
-
-                            break;
-                        case R.id.text_2:
-                            break;
-                        case R.id.text_3:
-                            break;
-                        default:
-                            break;
-                    }
-                }
-            });
-            rv.setAdapter(adapter);
+            initAdapter(entities);
         } else {
             adapter.setNewData(entities);
             adapter.notifyDataSetChanged();

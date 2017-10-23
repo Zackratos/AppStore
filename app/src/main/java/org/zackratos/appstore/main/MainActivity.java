@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 
 
 import org.zackratos.appstore.R;
+import org.zackratos.appstore.Test.TestFragment;
 import org.zackratos.appstore.base.BaseActivity;
 import org.zackratos.appstore.main.ranking.RankFragment;
 import org.zackratos.appstore.main.recommend.RecommendFragment;
@@ -68,8 +69,8 @@ public class MainActivity extends BaseActivity {
         List<FragmentInfo> fragmentInfos = new ArrayList<>();
         fragmentInfos.add(new FragmentInfo(new RecommendFragment(), getString(R.string.main_recommend)));
         fragmentInfos.add(new FragmentInfo(new RankFragment(), getString(R.string.main_ranking)));
-        fragmentInfos.add(new FragmentInfo(new RecommendFragment(), getString(R.string.main_game)));
-        fragmentInfos.add(new FragmentInfo(new RecommendFragment(), getString(R.string.main_category)));
+        fragmentInfos.add(new FragmentInfo(new TestFragment(), getString(R.string.main_game)));
+        fragmentInfos.add(new FragmentInfo(new TestFragment(), getString(R.string.main_category)));
         viewPager.setOffscreenPageLimit(fragmentInfos.size());
         viewPager.setAdapter(new FragmentAdapter(getSupportFragmentManager(), fragmentInfos));
     }
