@@ -12,16 +12,13 @@ import android.support.v7.widget.Toolbar;
 
 import org.zackratos.appstore.R;
 import org.zackratos.appstore.base.BaseActivity;
+import org.zackratos.appstore.main.ranking.RankFragment;
 import org.zackratos.appstore.main.recommend.RecommendFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.functions.Function;
 
 public class MainActivity extends BaseActivity {
 
@@ -70,7 +67,7 @@ public class MainActivity extends BaseActivity {
     private void initViewPager() {
         List<FragmentInfo> fragmentInfos = new ArrayList<>();
         fragmentInfos.add(new FragmentInfo(new RecommendFragment(), getString(R.string.main_recommend)));
-        fragmentInfos.add(new FragmentInfo(new RecommendFragment(), getString(R.string.main_ranking)));
+        fragmentInfos.add(new FragmentInfo(new RankFragment(), getString(R.string.main_ranking)));
         fragmentInfos.add(new FragmentInfo(new RecommendFragment(), getString(R.string.main_game)));
         fragmentInfos.add(new FragmentInfo(new RecommendFragment(), getString(R.string.main_category)));
         viewPager.setOffscreenPageLimit(fragmentInfos.size());
@@ -88,22 +85,4 @@ public class MainActivity extends BaseActivity {
     }
 
 
-
-    private void test(List<String[]> data) {
-        Observable.fromIterable(data)
-                .flatMap(new Function<String[], ObservableSource<String>>() {
-                    @Override
-                    public ObservableSource<String> apply(@NonNull String[] strings) throws Exception {
-                        return Observable.fromArray(strings);
-                    }
-                })
-                .toList()
-                .map(new Function<List<String>, String[]>() {
-                    @Override
-                    public String[] apply(@NonNull List<String> strings) throws Exception {
-                        return new String[0];
-                    }
-                });
-
-    }
 }

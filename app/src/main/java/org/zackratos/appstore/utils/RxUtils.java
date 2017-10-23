@@ -2,6 +2,9 @@ package org.zackratos.appstore.utils;
 
 import org.zackratos.appstore.error.ApiException;
 import org.zackratos.appstore.http.BaseResult;
+import org.zackratos.appstore.result.PageBean;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
@@ -29,7 +32,7 @@ public class RxUtils {
     }
 
 
-    public static <T> ObservableTransformer<BaseResult<T>, T> errorHandler() {
+    public static <T> ObservableTransformer<BaseResult<T>, T> handlerBaseError() {
         return new ObservableTransformer<BaseResult<T>, T>() {
             @Override
             public ObservableSource<T> apply(@NonNull Observable<BaseResult<T>> upstream) {
@@ -46,5 +49,26 @@ public class RxUtils {
             }
         };
     }
+
+
+    public static <T> ObservableTransformer<PageBean<T>, List<T>> handlerPageError() {
+
+        return new ObservableTransformer<PageBean<T>, List<T>>() {
+            @Override
+            public ObservableSource<List<T>> apply(@NonNull Observable<PageBean<T>> upstream) {
+                return upstream.flatMap(new Function<PageBean<T>, ObservableSource<List<T>>>() {
+                    @Override
+                    public ObservableSource<List<T>> apply(@NonNull PageBean<T> tPageBean) throws Exception {
+                        if (tPageBean.getStatus() == 1) {
+                            return Observable.just(tPageBean.getDatas());
+                        }
+                        return Observable.error(new ApiException(tPageBean.getMessage()));
+                    }
+                });
+            }
+        };
+    }
+
+
 
 }

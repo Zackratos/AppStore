@@ -1,6 +1,8 @@
-package org.zackratos.appstore.main.recommend;
+package org.zackratos.appstore.result;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
+
+import org.zackratos.appstore.main.recommend.RecommendAdapter;
 
 import java.util.List;
 
@@ -9,7 +11,7 @@ import java.util.List;
  * Created by Administrator on 2017/10/22.
  */
 
-public class RecommendData implements MultiItemEntity {
+public class AppInfo implements MultiItemEntity {
 
     /**
      * addTime : 0
@@ -92,9 +94,156 @@ public class RecommendData implements MultiItemEntity {
     private List<AppTag> appTags;
 
 
+    public int getAddTime() {
+        return addTime;
+    }
+
+    public boolean isHasSameDevApp() {
+        return hasSameDevApp;
+    }
+
+    public int getVideoId() {
+        return videoId;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public String getVersionName() {
+        return versionName;
+    }
+
+    public float getRatingScore() {
+        return ratingScore;
+    }
+
+    public String getBriefShow() {
+        return briefShow;
+    }
+
+    public int getDeveloperId() {
+        return developerId;
+    }
+
+    public int getFitness() {
+        return fitness;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public int getLevel1CategoryId() {
+        return level1CategoryId;
+    }
+
+    public String getReleaseKeyHash() {
+        return releaseKeyHash;
+    }
+
+    public boolean isRelateAppHasMore() {
+        return relateAppHasMore;
+    }
+
+    public int getrId() {
+        return rId;
+    }
+
+    public int getSuitableType() {
+        return suitableType;
+    }
+
+    public boolean isBriefUseIntro() {
+        return briefUseIntro;
+    }
+
+    public int getAds() {
+        return ads;
+    }
+
+    public String getPublisherName() {
+        return publisherName;
+    }
+
+    public int getLevel2CategoryId() {
+        return level2CategoryId;
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public int getAppendSize() {
+        return appendSize;
+    }
+
+    public String getLevel1CategoryName() {
+        return level1CategoryName;
+    }
+
+    public boolean isSamDevAppHasMore() {
+        return samDevAppHasMore;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public String getScreenshot() {
+        return screenshot;
+    }
+
+    public int getRatingTotalCount() {
+        return ratingTotalCount;
+    }
+
+    public int getAdType() {
+        return adType;
+    }
+
+    public int getApkSize() {
+        return apkSize;
+    }
+
+    public String getPackageName() {
+        return packageName;
+    }
+
+    public long getUpdateTime() {
+        return updateTime;
+    }
+
+    public int getGrantCode() {
+        return grantCode;
+    }
+
+    public int getVersionCode() {
+        return versionCode;
+    }
+
+    public int getDiffFileSize() {
+        return diffFileSize;
+    }
+
+    public HdIcon getHdIcon() {
+        return hdIcon;
+    }
+
+    public List<AppTag> getAppTags() {
+        return appTags;
+    }
 
     @Override
     public int getItemType() {
-        return RecommendAdapter.DATA;
+        return RecommendAdapter.APP;
     }
 }

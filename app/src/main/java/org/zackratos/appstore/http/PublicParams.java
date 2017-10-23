@@ -31,7 +31,7 @@ public class PublicParams {
     public PublicParams(Context context) {
         TelephonyManager tm = (TelephonyManager) context
                 .getSystemService(Context.TELEPHONY_SERVICE);
-        this.imei = tm != null ? tm.getDeviceId() : null;
+//        this.imei = tm != null ? tm.getDeviceId() : null;
         this.model = Build.MODEL;
         this.la = Locale.getDefault().getLanguage();
         this.densityScaleFactor = String.valueOf(context

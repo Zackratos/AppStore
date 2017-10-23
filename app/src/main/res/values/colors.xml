@@ -5,4 +5,14 @@
     <color name="colorAccent">@color/main</color>
 
     <color name="main">#00BFFF</color>
+
+    <!--recommend-->
+    <color name="rec_nav">@color/black</color>
+
+
+
+
+
+
+    <color name="black">#000000</color>
 </resources>

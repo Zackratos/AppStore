@@ -5,4 +5,6 @@
     <item type="id" name="text_1" />
     <item type="id" name="text_2" />
     <item type="id" name="text_3" />
+    <item type="id" name="image_1" />
+    <item type="id" name="image_2" />
 </resources>

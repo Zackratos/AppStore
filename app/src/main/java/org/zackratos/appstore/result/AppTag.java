@@ -1,4 +1,4 @@
-package org.zackratos.appstore.main.recommend;
+package org.zackratos.appstore.result;
 
 /**
  *

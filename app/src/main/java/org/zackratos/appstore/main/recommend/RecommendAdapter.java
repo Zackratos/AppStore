@@ -1,5 +1,8 @@
 package org.zackratos.appstore.main.recommend;
 
+import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
@@ -7,6 +10,10 @@ import com.youth.banner.Banner;
 
 import org.zackratos.appstore.GlideImageLoader;
 import org.zackratos.appstore.R;
+import org.zackratos.appstore.app.Constant;
+import org.zackratos.appstore.result.Banners;
+import org.zackratos.appstore.result.Header;
+import org.zackratos.appstore.result.AppInfo;
 
 import java.util.List;
 
@@ -24,8 +31,7 @@ public class RecommendAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity,
 
     public static final int HEADER = 3;
 
-    public static final int DATA = 4;
-
+    public static final int APP = 4;
 
     /**
      * Same as QuickAdapter#QuickAdapter(Context,int) but with
@@ -38,7 +44,7 @@ public class RecommendAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity,
         addItemType(BANNER, R.layout.item_recommend_banner);
         addItemType(NAV, R.layout.item_recommend_nav);
         addItemType(HEADER, R.layout.item_recommned_header);
-        addItemType(DATA, R.layout.item_recommend_data);
+        addItemType(APP, R.layout.item_recommend_app);
     }
 
     @Override
@@ -56,8 +62,16 @@ public class RecommendAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity,
                         .addOnClickListener(R.id.text_3);
                 break;
             case HEADER:
+                helper.setText(R.id.text_1, ((Header) item).getTitleId());
                 break;
-            case DATA:
+            case APP:
+                AppInfo data = (AppInfo) item;
+                helper.setText(R.id.text_1, data.getDisplayName())
+                        .setText(R.id.text_2, data.getBriefShow());
+                ImageView imageView = helper.getView(R.id.image_1);
+                Glide.with(imageView.getContext())
+                        .load(String.format("%s%s", Constant.BASE_IMG_URL, data.getIcon()))
+                        .into(imageView);
                 break;
             default:
                 break;

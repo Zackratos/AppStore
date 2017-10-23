@@ -1,8 +1,10 @@
-package org.zackratos.appstore.main.recommend;
+package org.zackratos.appstore.result;
 
 
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
+
+import org.zackratos.appstore.main.recommend.RecommendAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,5 +1,6 @@
 package org.zackratos.appstore.app;
 
+
 import android.app.Application;
 
 import com.squareup.leakcanary.LeakCanary;

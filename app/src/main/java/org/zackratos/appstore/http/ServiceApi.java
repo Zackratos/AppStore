@@ -1,6 +1,8 @@
 package org.zackratos.appstore.http;
 
-import org.zackratos.appstore.main.recommend.IndexData;
+import org.zackratos.appstore.result.AppInfo;
+import org.zackratos.appstore.result.IndexData;
+import org.zackratos.appstore.result.PageBean;
 
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;
@@ -22,5 +24,11 @@ public interface ServiceApi {
 
     @GET("index")
     Observable<BaseResult<IndexData>> rxIndex(@Query("p") String params);
+
+    @GET("toplist")
+    Call<ResponseBody> topList(@Query("p") String params);
+
+    @GET("toplist")
+    Observable<BaseResult<PageBean<AppInfo>>> rxTopList(@Query("p") String params);
 
 }
