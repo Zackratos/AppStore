@@ -1,13 +1,17 @@
 package org.zackratos.appstore.http;
 
+import org.zackratos.appstore.login.LoginParams;
 import org.zackratos.appstore.result.AppInfo;
 import org.zackratos.appstore.result.IndexData;
+import org.zackratos.appstore.result.LoginResult;
 import org.zackratos.appstore.result.PageBean;
 
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 /**
@@ -30,5 +34,17 @@ public interface ServiceApi {
 
     @GET("toplist")
     Observable<BaseResult<PageBean<AppInfo>>> rxTopList(@Query("p") String params);
+
+    @POST("login")
+    Call<ResponseBody> login(@Body LoginParams params);
+
+    @POST("login")
+    Observable<BaseResult<LoginResult>> rxLogin(@Body LoginParams params);
+
+    @GET("game")
+    Call<ResponseBody> game(@Query("p") String params);
+
+    @GET("game")
+    Observable<BaseResult<PageBean<AppInfo>>> rxGame(@Query("p") String params);
 
 }

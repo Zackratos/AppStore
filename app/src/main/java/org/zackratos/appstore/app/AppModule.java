@@ -4,6 +4,8 @@ import android.app.Application;
 
 import com.google.gson.Gson;
 
+import org.zackratos.appstore.data.DataHelper;
+import org.zackratos.appstore.data.PrefHelper;
 import org.zackratos.appstore.http.PublicParams;
 
 import javax.inject.Singleton;
@@ -48,13 +50,6 @@ public class AppModule {
     public Gson provideGson() {
         return new Gson();
     }
-
-/*    @Singleton
-    @Provides
-    @Named("params")
-    public String providePublicParamsJson(Application context, Gson gson) {
-        return gson.toJson(new PublicParams(context));
-    }*/
 
 
 }

@@ -6,19 +6,22 @@
     android:layout_height="100dp"
     android:layout_marginLeft="10dp"
     android:layout_marginRight="10dp"
+    android:gravity="center_vertical"
     android:background="?attr/selectableItemBackground"
     android:clickable="true">
 
     <TextView
-        android:id="@+id/text_1"
+        android:id="@+id/text_3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:textColor="@color/black"
-        android:layout_gravity="center_vertical"
         android:textSize="16sp"/>
 
-    <ImageView
+    <include
+        layout="@layout/layout_appinfo"/>
+
+<!--    <ImageView
         android:id="@id/image_1"
         android:layout_width="60dp"
         android:layout_height="60dp"
@@ -36,6 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
+            android:layout_marginTop="2dp"
             android:textSize="16sp" />
 
         <TextView
@@ -44,6 +48,6 @@
             android:layout_height="wrap_content"
             android:maxLines="1"/>
 
-    </LinearLayout>
+    </LinearLayout>-->
 
 </LinearLayout>

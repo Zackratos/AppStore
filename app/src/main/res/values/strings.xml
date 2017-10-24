@@ -18,6 +18,13 @@
     <string name="main_ranking">排行</string>
     <string name="main_game">游戏</string>
     <string name="main_category">分类</string>
+    
+    <!--menu-->
+    <string name="menu_update">应用更新</string>
+    <string name="menu_download">下载管理</string>
+    <string name="menu_uninstall">应用卸载</string>
+    <string name="menu_setup">系统设置</string>
+    <string name="menu_sing_up">退出登录</string>
 
     <!--recommend-->
     <string name="rec_app">热门应用</string>
@@ -27,6 +34,11 @@
 
     <!--login-->
     <string name="login_name">点击登录</string>
+    <string name="login_tel_error">请输入正确的手机号</string>
+    <string name="login_password_empty">请输入密码</string>
+
+    <!--manager-->
+    <string name="manager_label">管理</string>
 
 
     <!-- Strings related to login -->

@@ -14,7 +14,7 @@
         android:layout_weight="1"
         android:gravity="center_horizontal"
         android:text="@string/rec_app"
-        android:drawableTop="@mipmap/ic_launcher"
+        android:drawableTop="@drawable/ic_android_black_24dp"
         android:textColor="@color/rec_nav"
         android:background="?attr/selectableItemBackground"/>
 

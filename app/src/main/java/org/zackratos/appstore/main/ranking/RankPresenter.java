@@ -8,6 +8,7 @@ import org.zackratos.appstore.base.RxPresenter;
 import org.zackratos.appstore.error.ErrorConsumer;
 import org.zackratos.appstore.http.BaseResult;
 import org.zackratos.appstore.http.ServiceApi;
+import org.zackratos.appstore.main.PageParams;
 import org.zackratos.appstore.result.AppInfo;
 import org.zackratos.appstore.result.PageBean;
 import org.zackratos.appstore.utils.RxUtils;
@@ -34,15 +35,15 @@ public class RankPresenter extends RxPresenter<RankContract.View> implements Ran
 
 //    private String params;
 
-    private TopListParams topListParams;
+    private PageParams pageParams;
 
     private Gson gson;
 
     @Inject
-    public RankPresenter(ServiceApi serviceApi, Gson gson, TopListParams params) {
+    public RankPresenter(ServiceApi serviceApi, Gson gson, PageParams params) {
         this.serviceApi = serviceApi;
         this.gson = gson;
-        this.topListParams = params;
+        this.pageParams = params;
     }
 
 //    private Observable<PageBean<AppInfo>> topListObservable;
@@ -53,8 +54,8 @@ public class RankPresenter extends RxPresenter<RankContract.View> implements Ran
                 .map(new Function<Integer, String>() {
                     @Override
                     public String apply(@NonNull Integer integer) throws Exception {
-                        topListParams.setPage(integer);
-                        return gson.toJson(topListParams);
+                        pageParams.setPage(integer);
+                        return gson.toJson(pageParams);
                     }
                 })
                 .flatMap(new Function<String, ObservableSource<BaseResult<PageBean<AppInfo>>>>() {
