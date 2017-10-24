@@ -31,10 +31,8 @@
             android:label="@string/title_activity_test"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".Test.TestActivity2"></activity>
-        <activity
-            android:name=".login.LoginActivity2"
-            android:label="@string/title_activity_login"/>
-        <activity android:name=".login.LoginActivity"/>
+        <activity android:name=".login.LoginActivity"
+            android:label="@string/login_label"/>
         <activity android:name=".manager.ManagerActivity"
             android:label="@string/manager_label"/>
     </application>

@@ -33,6 +33,10 @@
     <string name="title_activity_login">Sign in</string>
 
     <!--login-->
+    <string name="login_label">登录</string>
+    <string name="login_tel">手机号</string>
+    <string name="login_password">密码</string>
+    <string name="login_login">登录</string>
     <string name="login_name">点击登录</string>
     <string name="login_tel_error">请输入正确的手机号</string>
     <string name="login_password_empty">请输入密码</string>

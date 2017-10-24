@@ -1,7 +1,11 @@
 package org.zackratos.appstore.login;
 
+import android.app.ProgressDialog;
+import android.os.Bundle;
 import android.support.annotation.StringRes;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 
@@ -25,6 +29,7 @@ import butterknife.OnClick;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
@@ -41,6 +46,9 @@ public class LoginActivity extends BaseActivity {
 
     @BindView(R.id.password)
     EditText passView;
+
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
 
     @OnClick(R.id.sign_in_button)
     void onLoginClick() {
@@ -63,6 +71,12 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected int getLayout() {
         return R.layout.activity_login;
+    }
+
+    @Override
+    protected void onViewCreated(Bundle savedInstanceState) {
+        super.onViewCreated(savedInstanceState);
+        setToolbar(toolbar, true);
     }
 
     @Override
@@ -102,16 +116,48 @@ public class LoginActivity extends BaseActivity {
                 .subscribe(new Consumer<UserInfo>() {
                     @Override
                     public void accept(UserInfo userInfo) throws Exception {
+                        dismissProgressDialog();
                         RxBus.getDefault().post(userInfo);
                         finish();
                     }
                 }, new ErrorConsumer() {
                     @Override
                     public void handlerError(@StringRes int messageId) {
+                        dismissProgressDialog();
                         toastHelper.show(messageId);
+                    }
+                }, new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        Log.d(TAG, "run: ");
+                    }
+                }, new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                        showProgressDialog();
                     }
                 });
 
+    }
+
+
+    private ProgressDialog progressDialog;
+
+    private void showProgressDialog() {
+        if (progressDialog == null) {
+            progressDialog = new ProgressDialog(this);
+            progressDialog.setTitle("sadf");
+            progressDialog.setMessage("sadjfl");
+            progressDialog.setCancelable(false);
+            progressDialog.setCanceledOnTouchOutside(false);
+        }
+        progressDialog.show();
+    }
+
+    private void dismissProgressDialog() {
+        if (progressDialog != null) {
+            progressDialog.dismiss();
+        }
     }
 
 
