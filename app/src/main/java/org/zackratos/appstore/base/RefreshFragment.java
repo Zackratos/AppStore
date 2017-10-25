@@ -97,6 +97,13 @@ public abstract class RefreshFragment<P extends BasePresenter> extends MVPFragme
         msgView.setText(messageId);
     }
 
+    protected void refreshFail(String message) {
+        refreshOver();
+        contentView.setVisibility(View.GONE);
+        msgView.setVisibility(View.VISIBLE);
+        msgView.setText(message);
+    }
+
     @LayoutRes
     protected abstract int getRealLayout();
 

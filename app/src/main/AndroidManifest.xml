@@ -29,12 +29,15 @@
         <activity
             android:name=".Test.TestActivity"
             android:label="@string/title_activity_test"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".Test.TestActivity2"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
         <activity android:name=".login.LoginActivity"
             android:label="@string/login_label"/>
         <activity android:name=".manager.ManagerActivity"
             android:label="@string/manager_label"/>
+        <activity android:name=".appinfo.AppInfoActivity"
+            />
     </application>
 
 </manifest>

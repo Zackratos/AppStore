@@ -3,9 +3,11 @@ package org.zackratos.appstore.app;
 
 import android.app.Application;
 
+import com.bumptech.glide.DrawableTypeRequest;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 
+import org.zackratos.appstore.data.DataModule;
 import org.zackratos.appstore.http.HttpModule;
 
 import java.util.ArrayList;
@@ -56,13 +58,22 @@ public class App extends Application{
             appComponent = DaggerAppComponent.builder()
                     .appModule(new AppModule(this))
                     .httpModule(new HttpModule())
+                    .dataModule(new DataModule())
                     .build();
         }
         return appComponent;
     }
 
 
+/*    private DrawableTypeRequest<String> appIconRequest;
 
+    public DrawableTypeRequest<String> getAppIconRequest() {
+        return appIconRequest;
+    }
+
+    public void setAppIconRequest(DrawableTypeRequest<String> appIconRequest) {
+        this.appIconRequest = appIconRequest;
+    }*/
 
 
     private void test(String[][] datass) {

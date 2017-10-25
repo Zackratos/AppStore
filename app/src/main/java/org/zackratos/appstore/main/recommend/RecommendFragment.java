@@ -1,18 +1,27 @@
 package org.zackratos.appstore.main.recommend;
 
 
+import android.app.ActivityOptions;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 
+import com.bumptech.glide.request.target.SquaringDrawable;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 
 import org.zackratos.appstore.R;
+import org.zackratos.appstore.RxBus;
+import org.zackratos.appstore.appinfo.AppInfoActivity;
 import org.zackratos.appstore.base.RefreshFragment;
+import org.zackratos.appstore.result.AppInfo;
 
 import java.util.List;
 
@@ -70,6 +79,27 @@ public class RecommendFragment extends RefreshFragment<RecommendPresenter> imple
                 }
             }
         });
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                if (adapter.getItemViewType(position) == RecommendAdapter.APP) {
+                    AppInfo appInfo = (AppInfo) adapter.getItem(position);
+                    ImageView iconImage = view.findViewById(R.id.image_1);
+//                    iconImage.setDrawingCacheEnabled(true);
+//                    Bitmap bitmap = iconImage.getDrawingCache();
+                    Intent intent = AppInfoActivity.newIntent(getActivity(), appInfo);
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+
+                        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation
+                                (getActivity(), iconImage, "share").toBundle());
+                    } else {
+                        startActivity(intent);
+                    }
+//                    iconImage.setDrawingCacheEnabled(false);
+                }
+            }
+        });
         rv.setAdapter(adapter);
     }
 
@@ -87,7 +117,7 @@ public class RecommendFragment extends RefreshFragment<RecommendPresenter> imple
 
 
     @Override
-    public void loadFail(@StringRes int messageId) {
-        refreshFail(messageId);
+    public void loadFail(String message) {
+        refreshFail(message);
     }
 }

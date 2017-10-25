@@ -74,8 +74,8 @@ public class RecommendPresenter extends RxPresenter<RecommendContract.View> impl
                     }
                 }, new ErrorConsumer() {
                     @Override
-                    public void handlerError(@StringRes int messageId) {
-                        view.loadFail(messageId);
+                    public void handlerError(String message) {
+                        view.loadFail(message);
                     }
                 });
 

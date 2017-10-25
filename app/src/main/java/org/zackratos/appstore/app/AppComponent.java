@@ -4,8 +4,8 @@ import android.app.Application;
 
 import com.google.gson.Gson;
 
-import org.zackratos.appstore.data.DataHelper;
 import org.zackratos.appstore.data.DataModule;
+import org.zackratos.appstore.error.ErrorConsumer;
 import org.zackratos.appstore.http.PublicParams;
 import org.zackratos.appstore.http.ServiceApi;
 import org.zackratos.appstore.http.HttpModule;
@@ -34,11 +34,11 @@ public interface AppComponent {
 
     PublicParams publicParams();
 
-    DataHelper dataHelper();
-
     void inject(LoginActivity activity);
 
     void inject(MainActivity activity);
+
+    void inject(ErrorConsumer consumer);
 
 //    @Named("params")
 //    String publicParams();

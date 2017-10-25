@@ -29,4 +29,8 @@ public class LoginParams {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public PublicParams getPublicParams() {
+        return publicParams;
+    }
 }

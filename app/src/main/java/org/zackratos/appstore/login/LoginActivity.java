@@ -2,10 +2,8 @@ package org.zackratos.appstore.login;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.support.annotation.StringRes;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 
@@ -109,6 +107,7 @@ public class LoginActivity extends BaseActivity {
                         UserInfo userInfo = loginResult.getUser();
                         dataHelper.putToken(loginResult.getToken());
                         dataHelper.putUserInfo(userInfo);
+                        loginParams.getPublicParams().setToken(loginResult.getToken());
                         return userInfo;
                     }
                 })
@@ -122,14 +121,14 @@ public class LoginActivity extends BaseActivity {
                     }
                 }, new ErrorConsumer() {
                     @Override
-                    public void handlerError(@StringRes int messageId) {
+                    public void handlerError(String message) {
                         dismissProgressDialog();
-                        toastHelper.show(messageId);
+                        toastHelper.show(message);
                     }
                 }, new Action() {
                     @Override
                     public void run() throws Exception {
-                        Log.d(TAG, "run: ");
+
                     }
                 }, new Consumer<Disposable>() {
                     @Override
@@ -146,9 +145,9 @@ public class LoginActivity extends BaseActivity {
     private void showProgressDialog() {
         if (progressDialog == null) {
             progressDialog = new ProgressDialog(this);
-            progressDialog.setTitle("sadf");
-            progressDialog.setMessage("sadjfl");
-            progressDialog.setCancelable(false);
+            progressDialog.setTitle(R.string.login_load_title);
+            progressDialog.setMessage(getString(R.string.login_load_content));
+            progressDialog.setCancelable(true);
             progressDialog.setCanceledOnTouchOutside(false);
         }
         progressDialog.show();
@@ -157,9 +156,11 @@ public class LoginActivity extends BaseActivity {
     private void dismissProgressDialog() {
         if (progressDialog != null) {
             progressDialog.dismiss();
+            if (disposable != null && !disposable.isDisposed()) {
+                disposable.dispose();
+            }
         }
     }
-
 
 
     @Override

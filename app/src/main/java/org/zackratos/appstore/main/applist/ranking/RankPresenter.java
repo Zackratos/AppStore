@@ -1,39 +1,37 @@
-package org.zackratos.appstore.main.ranking;
+package org.zackratos.appstore.main.applist.ranking;
 
-import android.support.annotation.StringRes;
 
 import com.google.gson.Gson;
 
-import org.zackratos.appstore.base.RxPresenter;
-import org.zackratos.appstore.error.ErrorConsumer;
 import org.zackratos.appstore.http.BaseResult;
 import org.zackratos.appstore.http.ServiceApi;
+import org.zackratos.appstore.main.applist.AppListPresenter;
 import org.zackratos.appstore.main.PageParams;
 import org.zackratos.appstore.result.AppInfo;
 import org.zackratos.appstore.result.PageBean;
-import org.zackratos.appstore.utils.RxUtils;
 
 import javax.inject.Inject;
 
-import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  *
  * Created by xiboke on 2017/10/23.
  */
 
-public class RankPresenter extends RxPresenter<RankContract.View> implements RankContract.Presenter {
+public class RankPresenter extends AppListPresenter {
 
-    private ServiceApi serviceApi;
+    @Inject
+    public RankPresenter(ServiceApi serviceApi, Gson gson, PageParams params) {
+        super(serviceApi, gson, params);
+    }
 
-//    private String params;
+    @Override
+    protected ObservableSource<BaseResult<PageBean<AppInfo>>> getBaseResultObservable(String params) {
+        return serviceApi.rxTopList(params);
+    }
+
+    /*    private ServiceApi serviceApi;
 
     private PageParams pageParams;
 
@@ -70,7 +68,7 @@ public class RankPresenter extends RxPresenter<RankContract.View> implements Ran
 
 
     @Override
-    public void loadFirstPager() {
+    public void loadFirstPage() {
         page = 0;
         Disposable disposable = getTopListObservable()
                 .subscribe(new Consumer<PageBean<AppInfo>>() {
@@ -81,8 +79,8 @@ public class RankPresenter extends RxPresenter<RankContract.View> implements Ran
                     }
                 }, new ErrorConsumer() {
                     @Override
-                    public void handlerError(@StringRes int messageId) {
-                        view.loadFirstFail(messageId);
+                    public void handlerError(String message) {
+                        view.loadFirstFail(message);
                     }
                 });
 
@@ -103,8 +101,8 @@ public class RankPresenter extends RxPresenter<RankContract.View> implements Ran
                     }
                 }, new ErrorConsumer() {
                     @Override
-                    public void handlerError(@StringRes int messageId) {
-                        view.loadMoreFail(messageId);
+                    public void handlerError(String message) {
+                        view.loadMoreFail(message);
                     }
                 });
 
@@ -113,5 +111,5 @@ public class RankPresenter extends RxPresenter<RankContract.View> implements Ran
 
 
 
-    private static final String TAG = "RankPresenter";
+    private static final String TAG = "RankPresenter";*/
 }

@@ -18,7 +18,7 @@ public interface RecommendContract {
 
     interface View extends BaseView {
         void setData(List<MultiItemEntity> entities);
-        void loadFail(@StringRes int messageId);
+        void loadFail(String message);
     }
 
     interface Presenter extends BasePresenter<View> {

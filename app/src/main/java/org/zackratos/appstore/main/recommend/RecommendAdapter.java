@@ -3,6 +3,7 @@ package org.zackratos.appstore.main.recommend;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
@@ -69,8 +70,10 @@ public class RecommendAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity,
                 helper.setText(R.id.text_1, data.getDisplayName())
                         .setText(R.id.text_2, data.getBriefShow());
                 ImageView imageView = helper.getView(R.id.image_1);
+
                 Glide.with(imageView.getContext())
                         .load(String.format("%s%s", Constant.BASE_IMG_URL, data.getIcon()))
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(imageView);
                 break;
             default:

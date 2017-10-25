@@ -12,6 +12,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -46,5 +47,9 @@ public interface ServiceApi {
 
     @GET("game")
     Observable<BaseResult<PageBean<AppInfo>>> rxGame(@Query("p") String params);
+
+    @GET("app/{id}")
+    Call<ResponseBody> app(@Path("id") int id);
+
 
 }

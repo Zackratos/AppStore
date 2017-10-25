@@ -1,11 +1,14 @@
 package org.zackratos.appstore.error;
 
-import android.support.annotation.StringRes;
+
+import android.app.Application;
 
 import org.zackratos.appstore.R;
+import org.zackratos.appstore.app.App;
 
-import java.lang.*;
 import java.net.ConnectException;
+
+import javax.inject.Inject;
 
 import io.reactivex.functions.Consumer;
 import retrofit2.HttpException;
@@ -17,27 +20,31 @@ import retrofit2.HttpException;
 
 public abstract class ErrorConsumer implements Consumer<Throwable> {
 
-//    private static final String HTTP_EXCEPTION = "网络异常";
-//    private static final String CONNECT_EXCEPTION = "网络连接异常";
+    @Inject
+    Application application;
+
+    public ErrorConsumer() {
+        App.getInstance().getAppComponent().inject(this);
+    }
+
 
     @Override
     public void accept(Throwable throwable) throws Exception {
 
-        @StringRes
-        int messageId;
+        String message;
 
         if (throwable instanceof ConnectException) {
-            messageId = R.string.http_connect_exception;
+            message = application.getString(R.string.http_connect_exception);
         } else if (throwable instanceof HttpException) {
-            messageId = R.string.http_http_exception;
+            message = application.getString(R.string.http_http_exception);
         } else if (throwable instanceof ApiException) {
-            messageId = R.string.http_api_exception;
+            message = throwable.getMessage();
         } else {
-            messageId = R.string.http_unknown_exception;
+            message = application.getString(R.string.http_unknown_exception);
         }
 
-        handlerError(messageId);
+        handlerError(message);
     }
 
-    public abstract void handlerError(@StringRes int messageId);
+    public abstract void handlerError(String message);
 }

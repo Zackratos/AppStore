@@ -40,6 +40,8 @@
     <string name="login_name">点击登录</string>
     <string name="login_tel_error">请输入正确的手机号</string>
     <string name="login_password_empty">请输入密码</string>
+    <string name="login_load_title">登录</string>
+    <string name="login_load_content">正在登录中</string>
 
     <!--manager-->
     <string name="manager_label">管理</string>

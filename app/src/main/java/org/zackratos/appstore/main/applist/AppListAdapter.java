@@ -1,4 +1,4 @@
-package org.zackratos.appstore.main.ranking;
+package org.zackratos.appstore.main.applist;
 
 import android.support.annotation.Nullable;
 import android.widget.ImageView;
@@ -18,9 +18,9 @@ import java.util.List;
  * Created by xiboke on 2017/10/23.
  */
 
-public class RankAdapter extends BaseQuickAdapter<AppInfo, BaseViewHolder> {
+public class AppListAdapter extends BaseQuickAdapter<AppInfo, BaseViewHolder> {
 
-    public RankAdapter(@Nullable List<AppInfo> data) {
+    public AppListAdapter(@Nullable List<AppInfo> data) {
         super(R.layout.item_rank_app, data);
     }
 

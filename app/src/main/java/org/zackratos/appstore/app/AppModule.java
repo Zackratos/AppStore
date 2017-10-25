@@ -5,7 +5,6 @@ import android.app.Application;
 import com.google.gson.Gson;
 
 import org.zackratos.appstore.data.DataHelper;
-import org.zackratos.appstore.data.PrefHelper;
 import org.zackratos.appstore.http.PublicParams;
 
 import javax.inject.Singleton;
@@ -40,10 +39,9 @@ public class AppModule {
 
     @Singleton
     @Provides
-    public PublicParams providePublicParams(Application application) {
-        return new PublicParams(application);
+    public PublicParams providePublicParams(Application application, DataHelper dataHelper) {
+        return new PublicParams(application, dataHelper);
     }
-
 
     @Singleton
     @Provides

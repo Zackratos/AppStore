@@ -19,4 +19,6 @@ public interface DataHelper {
 
     String getToken();
 
+    void clearToken();
+
 }

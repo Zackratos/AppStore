@@ -31,8 +31,12 @@ public class PrefHelper implements DataHelper {
 
     private Context context;
 
+//    private PublicParams publicParams;
+
     public PrefHelper(Context context) {
         this.context = context;
+//        this.publicParams = params;
+//        publicParams.setToken(getToken());
     }
 
 
@@ -69,6 +73,7 @@ public class PrefHelper implements DataHelper {
 
     @Override
     public void putToken(String token) {
+//        publicParams.setToken(token);
         initDefaultSP();
         defaultSP.edit().putString(KEY_TOKEN, token).apply();
     }
@@ -76,7 +81,14 @@ public class PrefHelper implements DataHelper {
     @Override
     public String getToken() {
         initDefaultSP();
-        return defaultSP.getString(KEY_TOKEN, null);
+        return defaultSP.getString(KEY_TOKEN, "");
+    }
+
+    @Override
+    public void clearToken() {
+//        publicParams.setToken("");
+        initDefaultSP();
+        defaultSP.edit().remove(KEY_TOKEN).apply();
     }
 
 

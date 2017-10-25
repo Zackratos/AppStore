@@ -1,32 +1,19 @@
-package org.zackratos.appstore.main.ranking;
+package org.zackratos.appstore.main.applist.ranking;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
-
-import com.chad.library.adapter.base.BaseQuickAdapter;
-
-import org.zackratos.appstore.R;
-import org.zackratos.appstore.app.ToastHelper;
-import org.zackratos.appstore.base.RefreshFragment;
-import org.zackratos.appstore.result.AppInfo;
-import org.zackratos.appstore.result.PageBean;
-
-import java.util.List;
-
-import javax.inject.Inject;
+import org.zackratos.appstore.main.applist.AppListFragment;
 
 /**
  *
  * Created by xiboke on 2017/10/23.
  */
 
-public class RankFragment extends RefreshFragment<RankPresenter> implements RankContract.View {
+public class RankFragment extends AppListFragment<RankPresenter> {
+    @Override
+    protected void injectView() {
+        component.inject(this);
+    }
 
-    private RecyclerView rv;
+    /*    private RecyclerView rv;
 
     @Inject
     ToastHelper toastHelper;
@@ -50,17 +37,17 @@ public class RankFragment extends RefreshFragment<RankPresenter> implements Rank
 
     @Override
     public void onRefresh() {
-        presenter.loadFirstPager();
+        presenter.loadFirstPage();
     }
 
 
     ///////////////////////
 
 
-    private RankAdapter adapter;
+    private AppListAdapter adapter;
 
     private void initAdapter(List<AppInfo> appInfos) {
-        adapter = new RankAdapter(appInfos);
+        adapter = new AppListAdapter(appInfos);
 
         adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
@@ -84,11 +71,6 @@ public class RankFragment extends RefreshFragment<RankPresenter> implements Rank
     }
 
     @Override
-    public void loadFirstFail(@StringRes int messageId) {
-        refreshFail(messageId);
-    }
-
-    @Override
     public void setMoreData(PageBean<AppInfo> pageBean) {
         if (adapter == null) {
             return;
@@ -101,9 +83,16 @@ public class RankFragment extends RefreshFragment<RankPresenter> implements Rank
         }
     }
 
+
     @Override
-    public void loadMoreFail(@StringRes int messageId) {
-        adapter.loadMoreFail();
-        toastHelper.show(messageId);
+    public void loadFirstFail(String message) {
+        refreshFail(message);
     }
+
+    @Override
+    public void loadMoreFail(String message) {
+        adapter.loadMoreFail();
+        toastHelper.show(message);
+    }*/
+
 }
