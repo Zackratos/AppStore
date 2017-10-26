@@ -2,9 +2,12 @@ package org.zackratos.appstore.http;
 
 import org.zackratos.appstore.login.LoginParams;
 import org.zackratos.appstore.result.AppInfo;
+import org.zackratos.appstore.result.Category;
 import org.zackratos.appstore.result.IndexData;
 import org.zackratos.appstore.result.LoginResult;
 import org.zackratos.appstore.result.PageBean;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;
@@ -48,8 +51,20 @@ public interface ServiceApi {
     @GET("game")
     Observable<BaseResult<PageBean<AppInfo>>> rxGame(@Query("p") String params);
 
+    @GET("category")
+    Call<ResponseBody> category(@Query("p") String params);
+
+    @GET("category")
+    Observable<BaseResult<List<Category>>> rxCategroy(@Query("p") String params);
+
+    @GET("category/featured/{category_id}")
+    Call<ResponseBody> featured(@Path("category_id") int id, @Query("p") String params);
+
+    @GET("category/featured/{category_id}")
+    Observable<BaseResult<PageBean<AppInfo>>> rxFeatured(@Path("category_id") int id, @Query("p") String params);
+
     @GET("app/{id}")
-    Call<ResponseBody> app(@Path("id") int id);
+    Call<ResponseBody> app(@Path("id") int id, @Query("p") String params);
 
 
 }

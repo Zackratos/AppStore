@@ -11,6 +11,12 @@
     <item type="id" name="text_3" />
     <item type="id" name="image_1" />
     <item type="id" name="image_2" />
-    <item type="id" name="frame_layout_1" />
+    <item type="id" name="frame_layout" />
+    <item type="id" name="frame_layout_1"/>
+    <item type="id" name="frame_layout_2"/>
+    <item type="id" name="frame_layout_3"/>
+    <item type="id" name="linear_layout_1"/>
+    <item type="id" name="linear_layout_2"/>
+    <item type="id" name="linear_layout_3"/>
     <item type="id" name="expandable_text_view" />
 </resources>

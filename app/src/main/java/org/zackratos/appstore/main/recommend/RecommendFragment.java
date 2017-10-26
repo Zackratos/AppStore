@@ -67,6 +67,7 @@ public class RecommendFragment extends RefreshFragment<RecommendPresenter> imple
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+
                 switch (view.getId()) {
                     case R.id.text_1:
                         break;
@@ -85,8 +86,7 @@ public class RecommendFragment extends RefreshFragment<RecommendPresenter> imple
                 if (adapter.getItemViewType(position) == RecommendAdapter.APP) {
                     AppInfo appInfo = (AppInfo) adapter.getItem(position);
                     ImageView iconImage = view.findViewById(R.id.image_1);
-//                    iconImage.setDrawingCacheEnabled(true);
-//                    Bitmap bitmap = iconImage.getDrawingCache();
+
                     Intent intent = AppInfoActivity.newIntent(getActivity(), appInfo);
 
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -96,7 +96,7 @@ public class RecommendFragment extends RefreshFragment<RecommendPresenter> imple
                     } else {
                         startActivity(intent);
                     }
-//                    iconImage.setDrawingCacheEnabled(false);
+
                 }
             }
         });

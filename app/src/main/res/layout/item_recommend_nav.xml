@@ -4,10 +4,12 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:gravity="center_vertical"
     android:layout_marginTop="10dp"
     android:layout_marginBottom="10dp">
 
     <LinearLayout
+        android:id="@id/linear_layout_1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -16,14 +18,13 @@
         android:background="?attr/selectableItemBackground">
 
         <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:scaleType="centerInside"
             android:src="@drawable/ic_android_white"
             android:background="@drawable/bg_nav_app"/>
 
         <TextView
-            android:id="@id/text_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/rec_app"
@@ -31,9 +32,58 @@
             android:layout_marginTop="5dp"/>
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@id/linear_layout_2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:background="?attr/selectableItemBackground">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_game_white"
+            android:background="@drawable/bg_nav_game"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rec_game"
+            android:textColor="@color/rec_nav"
+            android:layout_marginTop="5dp"/>
+    </LinearLayout>
 
 
-    <TextView
+    <LinearLayout
+        android:id="@id/linear_layout_3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:background="?attr/selectableItemBackground">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_photo_white"
+            android:background="@drawable/bg_nav_theme"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rec_theme"
+            android:textColor="@color/rec_nav"
+            android:layout_marginTop="5dp"/>
+    </LinearLayout>
+
+
+
+<!--    <TextView
         android:id="@id/text_2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -42,9 +92,9 @@
         android:text="@string/rec_game"
         android:drawableTop="@mipmap/ic_launcher"
         android:textColor="@color/rec_nav"
-        android:background="?attr/selectableItemBackground"/>
+        android:background="?attr/selectableItemBackground"/>-->
 
-    <TextView
+<!--    <TextView
         android:id="@id/text_3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -53,6 +103,6 @@
         android:text="@string/rec_theme"
         android:drawableTop="@mipmap/ic_launcher"
         android:textColor="@color/rec_nav"
-        android:background="?attr/selectableItemBackground"/>
+        android:background="?attr/selectableItemBackground"/>-->
 
 </LinearLayout>

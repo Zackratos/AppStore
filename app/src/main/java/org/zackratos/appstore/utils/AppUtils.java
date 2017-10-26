@@ -12,6 +12,8 @@ import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
 
+import org.zackratos.appstore.AndroidAPK;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -407,23 +409,18 @@ public class AppUtils {
 
 
 
-/*
-    public static List<AndroidApk> getInstalledApps(Context context){
+    public static List<AndroidAPK> getInstalledApps(Context context){
 
 
         PackageManager pm = context.getPackageManager();
 
-
         List<PackageInfo> packageInfos =  pm.getInstalledPackages(PackageManager.MATCH_UNINSTALLED_PACKAGES);
 
-
-        List<AndroidApk> apks = new ArrayList<>(packageInfos.size());
+        List<AndroidAPK> apks = new ArrayList<>();
 
         for (PackageInfo info : packageInfos){
 
-
-
-            AndroidApk apk = new AndroidApk();
+            AndroidAPK apk = new AndroidAPK();
 
             apk.setPackageName(info.packageName);
 
@@ -450,5 +447,5 @@ public class AppUtils {
         }
         return  apks;
 
-    }*/
+    }
 }

@@ -38,6 +38,7 @@
             android:label="@string/manager_label"/>
         <activity android:name=".appinfo.AppInfoActivity"
             />
+        <activity android:name=".category.CategoryActivity"/>
     </application>
 
 </manifest>

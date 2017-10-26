@@ -9,7 +9,6 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.youth.banner.Banner;
 
-import org.zackratos.appstore.GlideImageLoader;
 import org.zackratos.appstore.R;
 import org.zackratos.appstore.app.Constant;
 import org.zackratos.appstore.result.Banners;
@@ -45,7 +44,7 @@ public class RecommendAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity,
         addItemType(BANNER, R.layout.item_recommend_banner);
         addItemType(NAV, R.layout.item_recommend_nav);
         addItemType(HEADER, R.layout.item_recommned_header);
-        addItemType(APP, R.layout.item_recommend_app);
+        addItemType(APP, R.layout.item_app_list);
     }
 
     @Override
@@ -58,9 +57,9 @@ public class RecommendAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity,
                         .start();
                 break;
             case NAV:
-                helper.addOnClickListener(R.id.text_1)
-                        .addOnClickListener(R.id.text_2)
-                        .addOnClickListener(R.id.text_3);
+                helper.addOnClickListener(R.id.linear_layout_1)
+                        .addOnClickListener(R.id.linear_layout_2)
+                        .addOnClickListener(R.id.linear_layout_3);
                 break;
             case HEADER:
                 helper.setText(R.id.text_1, ((Header) item).getTitleId());
@@ -68,7 +67,9 @@ public class RecommendAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity,
             case APP:
                 AppInfo data = (AppInfo) item;
                 helper.setText(R.id.text_1, data.getDisplayName())
-                        .setText(R.id.text_2, data.getBriefShow());
+                        .setText(R.id.text_2, data.getBriefShow())
+                        .setImageResource(R.id.image_2, R.drawable.ic_download_blue)
+                        .addOnClickListener(R.id.image_2);
                 ImageView imageView = helper.getView(R.id.image_1);
 
                 Glide.with(imageView.getContext())

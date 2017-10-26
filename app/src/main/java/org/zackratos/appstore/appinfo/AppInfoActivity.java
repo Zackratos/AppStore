@@ -4,20 +4,34 @@ package org.zackratos.appstore.appinfo;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
 import com.ms.square.android.expandabletextview.ExpandableTextView;
 
 import org.zackratos.appstore.R;
+import org.zackratos.appstore.SimpleParams;
+import org.zackratos.appstore.app.App;
 import org.zackratos.appstore.app.Constant;
 import org.zackratos.appstore.base.BaseActivity;
+import org.zackratos.appstore.http.ServiceApi;
 import org.zackratos.appstore.result.AppInfo;
 
+import java.io.IOException;
+
+import javax.inject.Inject;
+
 import butterknife.BindView;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  *
@@ -44,11 +58,23 @@ public class AppInfoActivity extends BaseActivity {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
+    @BindView(R.id.collapsing_toolbar_layout)
+    CollapsingToolbarLayout collapsingToolbarLayout;
+
     @BindView(R.id.recycler_view_1)
     RecyclerView shotRecycler;
 
     @BindView(R.id.expandable_text_view)
     ExpandableTextView desView;
+
+    @Inject
+    ServiceApi serviceApi;
+
+    @Inject
+    SimpleParams simpleParams;
+
+    @Inject
+    Gson gson;
 
 
 
@@ -69,6 +95,7 @@ public class AppInfoActivity extends BaseActivity {
 
     @Override
     protected void initEventAndData() {
+//        App.getInstance().getAppComponent().inject(this);
         Intent intent = getIntent();
         AppInfo appInfo = intent.getParcelableExtra(KEY_APP);
         Glide.with(this)
@@ -76,24 +103,27 @@ public class AppInfoActivity extends BaseActivity {
                 .into(iconImage);
         String[] screenShot = appInfo.getScreenshot().split(",");
         shotRecycler.setAdapter(new ShotAdapter(this, screenShot));
+        collapsingToolbarLayout.setTitle(appInfo.getDisplayName());
 
-        desView.setText("asdfasdf" +
-                "asdffasdfasdf" +
-                "asdfj;lasdfjlasdkf" +
-                "asdfjl;asdjfl;askd" +
-                "asjdlf;asdjfasdl;" +
-                "asdjf;lasdjfasdl;" +
-                "asdjf;lasdjfalsdk;jf" +
-                "asdjf;lasdjlf;kasjd" +
-                "asdjfl;kaaaaaaj" +
-                "asdj;lfasdjfl;asdkjflkasd" +
-                "asdjfl;kasdjfadslk;fjadsl;" +
-                "asdjfl;kasdjfladsk;jfas" +
-                "asdjf;lkasdjfkl;asdfjwekl" +
-                "]asdjf;weuorfdsalkfjas" +
-                "asdjlf;kewoifjkl;asdjoipew" +
-                "asdjf;lkwejopifasdkl;j" +
-                "asjdfl;kwejiopfldask;" +
-                "ajsdfklew;qjfpioekl;asd");
+/*        serviceApi.app(appInfo.getId(), gson.toJson(simpleParams))
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        ResponseBody body = response.body();
+                        try {
+                            String sdf = body.string();
+                            Log.d("TAG", "onResponse: " + sdf);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                    }
+                });*/
+
     }
 }

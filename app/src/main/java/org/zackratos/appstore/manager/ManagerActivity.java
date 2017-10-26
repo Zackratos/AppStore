@@ -12,6 +12,7 @@ import org.zackratos.appstore.Test.TestFragment;
 import org.zackratos.appstore.base.BaseActivity;
 import org.zackratos.appstore.main.FragmentAdapter;
 import org.zackratos.appstore.main.FragmentInfo;
+import org.zackratos.appstore.manager.installed.InstalledFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,10 +66,10 @@ public class ManagerActivity extends BaseActivity {
 
     private void initViewPager() {
         List<FragmentInfo> fragmentInfos = new ArrayList<>();
-        fragmentInfos.add(new FragmentInfo(new TestFragment(), getString(R.string.main_recommend)));
-        fragmentInfos.add(new FragmentInfo(new TestFragment(), getString(R.string.main_ranking)));
-        fragmentInfos.add(new FragmentInfo(new TestFragment(), getString(R.string.main_game)));
-        fragmentInfos.add(new FragmentInfo(new TestFragment(), getString(R.string.main_category)));
+        fragmentInfos.add(new FragmentInfo(new TestFragment(), getString(R.string.manager_download)));
+        fragmentInfos.add(new FragmentInfo(new TestFragment(), getString(R.string.manager_finish)));
+        fragmentInfos.add(new FragmentInfo(new TestFragment(), getString(R.string.manager_update)));
+        fragmentInfos.add(new FragmentInfo(new InstalledFragment(), getString(R.string.manager_installed)));
         viewPager.setOffscreenPageLimit(fragmentInfos.size());
         viewPager.setAdapter(new FragmentAdapter(getSupportFragmentManager(), fragmentInfos));
         int position = getIntent().getIntExtra(KEY_POSITION, 0);

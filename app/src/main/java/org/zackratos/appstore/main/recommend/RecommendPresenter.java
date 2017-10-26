@@ -1,12 +1,12 @@
 package org.zackratos.appstore.main.recommend;
 
 
-import android.support.annotation.StringRes;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.google.gson.Gson;
 
 import org.zackratos.appstore.R;
+import org.zackratos.appstore.SimpleParams;
 import org.zackratos.appstore.base.RxPresenter;
 import org.zackratos.appstore.error.ErrorConsumer;
 import org.zackratos.appstore.http.ServiceApi;
@@ -42,7 +42,7 @@ public class RecommendPresenter extends RxPresenter<RecommendContract.View> impl
     private String params;
 
     @Inject
-    RecommendPresenter(ServiceApi serviceApi, Gson gson, IndexParams params) {
+    RecommendPresenter(ServiceApi serviceApi, Gson gson, SimpleParams params) {
         this.serviceApi = serviceApi;
 
         this.params = gson.toJson(params);

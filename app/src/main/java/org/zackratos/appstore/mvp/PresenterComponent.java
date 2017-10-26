@@ -1,8 +1,10 @@
 package org.zackratos.appstore.mvp;
 
 import org.zackratos.appstore.app.AppComponent;
-import org.zackratos.appstore.main.applist.game.GameFragment;
-import org.zackratos.appstore.main.applist.ranking.RankFragment;
+import org.zackratos.appstore.category.fine.FineFragment;
+import org.zackratos.appstore.main.game.GameFragment;
+import org.zackratos.appstore.main.ranking.RankFragment;
+import org.zackratos.appstore.main.category.CategoryFragment;
 import org.zackratos.appstore.main.recommend.RecommendFragment;
 
 import dagger.Component;
@@ -20,5 +22,9 @@ public interface PresenterComponent {
     void inject(RankFragment fragment);
 
     void inject(GameFragment fragment);
+
+    void inject(CategoryFragment fragment);
+
+    void inject(FineFragment fragment);
 
 }

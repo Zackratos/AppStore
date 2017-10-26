@@ -16,20 +16,19 @@
             android:title="@string/menu_uninstall" />
         <item
             android:id="@+id/nav_setup"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_settings_black"
             android:title="@string/menu_setup" />
     </group>
 
-    <item android:title="Communicate">
+
+
+    <item android:title="commit">
         <menu>
             <item
                 android:id="@+id/nav_sign_up"
-                android:icon="@drawable/ic_menu_share"
+                android:icon="@drawable/ic_power_black"
                 android:title="@string/menu_sing_up" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+
         </menu>
     </item>
 

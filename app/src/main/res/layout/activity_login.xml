@@ -40,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <EditText
+            <AutoCompleteTextView
                 android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -55,12 +55,12 @@
 
         <Button
             android:id="@+id/sign_in_button"
-            style="?android:textAppearanceSmall"
+            android:textColor="@android:color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/login_login"
-            android:background="@color/main"
+            android:background="@drawable/bg_login_button"
             android:textStyle="bold" />
 
     </LinearLayout>

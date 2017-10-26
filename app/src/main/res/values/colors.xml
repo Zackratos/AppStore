@@ -5,10 +5,16 @@
     <color name="colorAccent">@color/main</color>
 
     <color name="main">#00BFFF</color>
+    <color name="drawer">#32CD32</color>
 
     <!--recommend-->
     <color name="rec_nav">@color/black</color>
 
+
+    <!--nav-->
+    <color name="nav_app_bg">#43B361</color>
+    <color name="nav_game_bg">#3B9ED9</color>
+    <color name="nav_theme_bg">#F59F4C</color>
 
 
 

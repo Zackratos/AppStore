@@ -3,9 +3,7 @@ package org.zackratos.appstore.login;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.widget.AutoCompleteTextView;
-import android.widget.EditText;
 
 import org.zackratos.appstore.R;
 import org.zackratos.appstore.RxBus;
@@ -43,7 +41,7 @@ public class LoginActivity extends BaseActivity {
     AutoCompleteTextView telView;
 
     @BindView(R.id.password)
-    EditText passView;
+    AutoCompleteTextView passView;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -92,8 +90,8 @@ public class LoginActivity extends BaseActivity {
             telView.setError(getString(R.string.login_tel_error));
             return;
         }
-        if (TextUtils.isEmpty(password)) {
-            toastHelper.show(R.string.login_password_empty);
+        if (password.length() < 6) {
+            passView.setError(getString(R.string.login_password_short));
             return;
         }
         loginParams.setEmail(telNumber);

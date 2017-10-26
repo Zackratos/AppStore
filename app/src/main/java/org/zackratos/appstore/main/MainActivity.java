@@ -18,15 +18,14 @@ import android.widget.TextView;
 
 import org.zackratos.appstore.R;
 import org.zackratos.appstore.RxBus;
-import org.zackratos.appstore.Test.TestFragment;
 import org.zackratos.appstore.app.App;
 import org.zackratos.appstore.base.BaseActivity;
 import org.zackratos.appstore.data.DataHelper;
 import org.zackratos.appstore.http.PublicParams;
 import org.zackratos.appstore.login.LoginActivity;
-import org.zackratos.appstore.main.applist.game.GameFragment;
-import org.zackratos.appstore.main.applist.game.GamePresenter;
-import org.zackratos.appstore.main.applist.ranking.RankFragment;
+import org.zackratos.appstore.main.game.GameFragment;
+import org.zackratos.appstore.main.ranking.RankFragment;
+import org.zackratos.appstore.main.category.CategoryFragment;
 import org.zackratos.appstore.main.recommend.RecommendFragment;
 import org.zackratos.appstore.manager.ManagerActivity;
 import org.zackratos.appstore.result.UserInfo;
@@ -88,7 +87,7 @@ public class MainActivity extends BaseActivity {
         headerView = navigationView.getHeaderView(0);
         nameView = headerView.findViewById(R.id.text_1);
         userIcon = headerView.findViewById(R.id.image_1);
-        headerView.findViewById(R.id.frame_layout_1).setOnClickListener(new View.OnClickListener() {
+        headerView.findViewById(R.id.frame_layout).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
@@ -164,7 +163,7 @@ public class MainActivity extends BaseActivity {
         fragmentInfos.add(new FragmentInfo(new RecommendFragment(), getString(R.string.main_recommend)));
         fragmentInfos.add(new FragmentInfo(new RankFragment(), getString(R.string.main_ranking)));
         fragmentInfos.add(new FragmentInfo(new GameFragment(), getString(R.string.main_game)));
-        fragmentInfos.add(new FragmentInfo(new TestFragment(), getString(R.string.main_category)));
+        fragmentInfos.add(new FragmentInfo(new CategoryFragment(), getString(R.string.main_category)));
         viewPager.setOffscreenPageLimit(fragmentInfos.size());
         viewPager.setAdapter(new FragmentAdapter(getSupportFragmentManager(), fragmentInfos));
     }

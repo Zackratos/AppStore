@@ -4,7 +4,6 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
     <string name="action_settings">Settings</string>
 
     <!--http-->
@@ -39,13 +38,21 @@
     <string name="login_login">登录</string>
     <string name="login_name">点击登录</string>
     <string name="login_tel_error">请输入正确的手机号</string>
-    <string name="login_password_empty">请输入密码</string>
+    <string name="login_password_short">密码最短6位</string>
     <string name="login_load_title">登录</string>
     <string name="login_load_content">正在登录中</string>
 
     <!--manager-->
     <string name="manager_label">管理</string>
+    <string name="manager_download">下载</string>
+    <string name="manager_finish">已完成</string>
+    <string name="manager_update">更新</string>
+    <string name="manager_installed">已安装</string>
 
+    <!--category-->
+    <string name="cate_fine">精品</string>
+    <string name="cate_rank">排行</string>
+    <string name="cate_news">新品</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
