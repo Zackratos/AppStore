@@ -39,6 +39,7 @@
         <activity android:name=".appinfo.AppInfoActivity"
             />
         <activity android:name=".category.CategoryActivity"/>
+
     </application>
 
 </manifest>

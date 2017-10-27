@@ -75,4 +75,8 @@ public class AndroidAPK {
     public boolean isSystem() {
         return isSystem;
     }
+
+    public String getPackageName() {
+        return packageName;
+    }
 }

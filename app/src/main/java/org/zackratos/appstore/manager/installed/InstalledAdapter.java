@@ -2,6 +2,8 @@ package org.zackratos.appstore.manager.installed;
 
 import android.graphics.Color;
 import android.support.annotation.Nullable;
+import android.view.View;
+
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
@@ -30,4 +32,5 @@ public class InstalledAdapter extends BaseQuickAdapter<AndroidAPK, BaseViewHolde
                 .setText(R.id.text_2, item.getApkPath())
                 .addOnClickListener(R.id.image_2);
     }
+
 }
