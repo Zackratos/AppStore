@@ -3,7 +3,7 @@ package org.zackratos.appstore.category.fine;
 import com.google.gson.Gson;
 
 import org.zackratos.appstore.base.applist.AppListPresenter;
-import org.zackratos.appstore.http.BaseResult;
+import org.zackratos.appstore.result.BaseResult;
 import org.zackratos.appstore.http.ServiceApi;
 import org.zackratos.appstore.main.PageParams;
 import org.zackratos.appstore.result.AppInfo;

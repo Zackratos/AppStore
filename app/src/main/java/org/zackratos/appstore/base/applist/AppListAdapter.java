@@ -32,7 +32,6 @@ public class AppListAdapter extends BaseQuickAdapter<AppInfo, BaseViewHolder> {
     protected void convert(BaseViewHolder helper, AppInfo item) {
 
         BaseViewHolder viewHolder = helper.setText(R.id.text_1, item.getDisplayName())
-                .setImageResource(R.id.image_2, R.drawable.ic_download_blue)
                 .setText(R.id.text_2, item.getBriefShow());
         if (number) {
             viewHolder.setText(R.id.text_3, String.format("%d .", item.getPosition() + 1));

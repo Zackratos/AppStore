@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 
+import org.zackratos.appstore.DLoadStatus;
 import org.zackratos.appstore.main.recommend.RecommendAdapter;
 
 import java.util.List;
@@ -57,6 +58,14 @@ public class AppInfo implements MultiItemEntity, Parcelable {
      * diffFileSize : 0
      */
 
+/*    public static final int STATUS_UNDOWNLOAD = 1;
+    public static final int STATUS_UNUPDATE = 2;
+    public static final int STATUS_DOWNLOADING = 3;
+    public static final int STATUS_PAUSE = 4;
+    public static final int STATUS_UNINSTALL = 5;
+    public static final int STATUS_INSTALLING = 6;
+    public static final int STATUS_INSTALLED = 7;*/
+
     private int addTime;
     private boolean hasSameDevApp;
     private int videoId;
@@ -95,6 +104,28 @@ public class AppInfo implements MultiItemEntity, Parcelable {
     private int diffFileSize;
     private HdIcon hdIcon;
     private List<AppTag> appTags;
+
+    private List<AppInfo> relateAppInfoList;
+
+    private String changeLog;
+
+    private String permissionIds;
+
+    private String web;
+
+    private String introduction;
+
+    private String detailHeaderImage;
+
+    private List<AppInfo> sameDevAppInfoList;
+
+    private String categoryId;
+
+    private DownloadInfo downloadInfo;
+
+    private DLoadStatus dLoadStatus;
+
+
 
 
     public int getAddTime() {
@@ -243,6 +274,26 @@ public class AppInfo implements MultiItemEntity, Parcelable {
 
     public List<AppTag> getAppTags() {
         return appTags;
+    }
+
+    public void setdLoadStatus(DLoadStatus dLoadStatus) {
+        this.dLoadStatus = dLoadStatus;
+    }
+
+    public DLoadStatus getdLoadStatus() {
+        return dLoadStatus;
+    }
+
+    public void setVersionCode(int versionCode) {
+        this.versionCode = versionCode;
+    }
+
+    public DownloadInfo getDownloadInfo() {
+        return downloadInfo;
+    }
+
+    public void setDownloadInfo(DownloadInfo downloadInfo) {
+        this.downloadInfo = downloadInfo;
     }
 
     @Override

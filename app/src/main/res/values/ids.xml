@@ -19,4 +19,5 @@
     <item type="id" name="linear_layout_2"/>
     <item type="id" name="linear_layout_3"/>
     <item type="id" name="expandable_text_view" />
+    <item type="id" name="download_button"/>
 </resources>

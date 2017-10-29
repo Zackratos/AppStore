@@ -3,8 +3,6 @@ package org.zackratos.appstore.main.recommend;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,17 +11,18 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.bumptech.glide.request.target.SquaringDrawable;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 
 import org.zackratos.appstore.R;
-import org.zackratos.appstore.RxBus;
+import org.zackratos.appstore.app.ToastHelper;
 import org.zackratos.appstore.appinfo.AppInfoActivity;
 import org.zackratos.appstore.base.RefreshFragment;
 import org.zackratos.appstore.result.AppInfo;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 /**
  *
@@ -33,6 +32,9 @@ import java.util.List;
 public class RecommendFragment extends RefreshFragment<RecommendPresenter> implements RecommendContract.View {
 
     private RecyclerView rv;
+
+    @Inject
+    ToastHelper toastHelper;
 
     @Override
     protected void injectView() {
@@ -67,16 +69,23 @@ public class RecommendFragment extends RefreshFragment<RecommendPresenter> imple
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                if (adapter.getItemViewType(position) == RecommendAdapter.APP) {
+                    AppInfo appInfo = (AppInfo) adapter.getData().get(position);
+                    if (view.getId() == R.id.image_2) {
+                        presenter.download(appInfo);
+                    }
+                } else if (adapter.getItemViewType(position) == RecommendAdapter.NAV) {
+                    switch (view.getId()) {
+                        case R.id.text_1:
+                            break;
+                        case R.id.text_2:
+                            break;
+                        case R.id.text_3:
+                            break;
+                        default:
+                            break;
+                    }
 
-                switch (view.getId()) {
-                    case R.id.text_1:
-                        break;
-                    case R.id.text_2:
-                        break;
-                    case R.id.text_3:
-                        break;
-                    default:
-                        break;
                 }
             }
         });
@@ -119,5 +128,11 @@ public class RecommendFragment extends RefreshFragment<RecommendPresenter> imple
     @Override
     public void loadFail(String message) {
         refreshFail(message);
+    }
+
+
+    @Override
+    public void downloadError(String message) {
+        toastHelper.show(message);
     }
 }

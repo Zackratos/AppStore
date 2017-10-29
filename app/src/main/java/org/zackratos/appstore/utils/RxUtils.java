@@ -1,7 +1,7 @@
 package org.zackratos.appstore.utils;
 
 import org.zackratos.appstore.error.ApiException;
-import org.zackratos.appstore.http.BaseResult;
+import org.zackratos.appstore.result.BaseResult;
 import org.zackratos.appstore.result.PageBean;
 
 import java.util.List;

@@ -9,6 +9,8 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.youth.banner.Banner;
 
+import org.zackratos.appstore.DownloadButton;
+import org.zackratos.appstore.DownloadButtonHelper;
 import org.zackratos.appstore.R;
 import org.zackratos.appstore.app.Constant;
 import org.zackratos.appstore.result.Banners;
@@ -68,9 +70,10 @@ public class RecommendAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity,
                 AppInfo data = (AppInfo) item;
                 helper.setText(R.id.text_1, data.getDisplayName())
                         .setText(R.id.text_2, data.getBriefShow())
-                        .setImageResource(R.id.image_2, R.drawable.ic_download_blue)
                         .addOnClickListener(R.id.image_2);
                 ImageView imageView = helper.getView(R.id.image_1);
+                DownloadButton downloadButton = helper.getView(R.id.download_button);
+                new DownloadButtonHelper(downloadButton, data).handleButton();
 
                 Glide.with(imageView.getContext())
                         .load(String.format("%s%s", Constant.BASE_IMG_URL, data.getIcon()))

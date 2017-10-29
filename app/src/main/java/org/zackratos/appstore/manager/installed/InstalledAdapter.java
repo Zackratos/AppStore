@@ -2,7 +2,6 @@ package org.zackratos.appstore.manager.installed;
 
 import android.graphics.Color;
 import android.support.annotation.Nullable;
-import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -28,9 +27,7 @@ public class InstalledAdapter extends BaseQuickAdapter<AndroidAPK, BaseViewHolde
         helper.setImageDrawable(R.id.image_1, item.getDrawable())
                 .setText(R.id.text_1, item.getAppName())
                 .setTextColor(R.id.text_1, item.isSystem() ? Color.RED : Color.BLACK)
-                .setImageResource(R.id.image_2, R.drawable.ic_delete_red)
-                .setText(R.id.text_2, item.getApkPath())
-                .addOnClickListener(R.id.image_2);
+                .setText(R.id.text_2, item.getApkPath());
     }
 
 }

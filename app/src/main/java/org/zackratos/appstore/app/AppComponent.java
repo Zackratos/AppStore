@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.google.gson.Gson;
 
+import org.zackratos.appstore.DownloadButtonHelper;
 import org.zackratos.appstore.appinfo.AppInfoActivity;
 import org.zackratos.appstore.data.DataModule;
 import org.zackratos.appstore.error.ErrorConsumer;
@@ -17,6 +18,7 @@ import org.zackratos.appstore.main.category.CategoryFragment;
 import javax.inject.Singleton;
 
 import dagger.Component;
+import zlc.season.rxdownload2.RxDownload;
 
 /**
  *
@@ -36,11 +38,15 @@ public interface AppComponent {
 
     PublicParams publicParams();
 
+    RxDownload rxDownload();
+
     void inject(LoginActivity activity);
 
     void inject(MainActivity activity);
 
     void inject(ErrorConsumer consumer);
+
+    void inject(DownloadButtonHelper helper);
 
 
 }

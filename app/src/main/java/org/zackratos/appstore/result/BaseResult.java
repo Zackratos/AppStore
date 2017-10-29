@@ -1,4 +1,4 @@
-package org.zackratos.appstore.http;
+package org.zackratos.appstore.result;
 
 /**
  *

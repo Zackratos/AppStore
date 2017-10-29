@@ -2,7 +2,9 @@ package org.zackratos.appstore.http;
 
 import org.zackratos.appstore.login.LoginParams;
 import org.zackratos.appstore.result.AppInfo;
+import org.zackratos.appstore.result.BaseResult;
 import org.zackratos.appstore.result.Category;
+import org.zackratos.appstore.result.DownloadInfo;
 import org.zackratos.appstore.result.IndexData;
 import org.zackratos.appstore.result.LoginResult;
 import org.zackratos.appstore.result.PageBean;
@@ -66,5 +68,16 @@ public interface ServiceApi {
     @GET("app/{id}")
     Call<ResponseBody> app(@Path("id") int id, @Query("p") String params);
 
+    @GET("download/{id}")
+    Call<ResponseBody> download(@Path("id") int id, @Query("p") String params);
+
+    @GET("download/{id}")
+    Observable<BaseResult<DownloadInfo>> rxDownload(@Path("id") int id, @Query("p") String params);
+
+    @GET("apps/updateinfo")
+    Call<ResponseBody> updateInfo(@Query("p") String params);
+
+    @GET("apps/updateinfo")
+    Observable<BaseResult<List<AppInfo>>> rxUdateInfo(@Query("p") String params);
 
 }
