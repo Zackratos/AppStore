@@ -13,6 +13,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import org.zackratos.appstore.AndroidAPK;
+import org.zackratos.appstore.InstallAccessibilityService;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -408,6 +409,32 @@ public class AppUtils {
         String filepath = String.format(String.format(context.getFilesDir().getParent() + File.separator + "%s", "shared_prefs"));
         FileUtils.deleteFileByDirectory(new File(filepath));
     }*/
+
+
+    public static boolean installNormal(Context context, String filePath) {
+
+
+        if(isAccessibilityEnabled(context, InstallAccessibilityService.class.getCanonicalName())){
+
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            File file = new File(filePath);
+            if (file == null || !file.exists() || !file.isFile() || file.length() <= 0) {
+                return false;
+            }
+
+            i.setDataAndType(Uri.parse("file://" + filePath), "application/vnd.android.package-archive");
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(i);
+            return true;
+        }
+        else {
+
+            context.startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
+            return true;
+        }
+
+
+    }
 
 
 

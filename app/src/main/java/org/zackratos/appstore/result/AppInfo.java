@@ -15,7 +15,7 @@ import java.util.List;
  * Created by Administrator on 2017/10/22.
  */
 
-public class AppInfo implements MultiItemEntity, Parcelable {
+public class AppInfo implements MultiItemEntity {
 
     /**
      * addTime : 0
@@ -121,7 +121,9 @@ public class AppInfo implements MultiItemEntity, Parcelable {
 
     private String categoryId;
 
-    private DownloadInfo downloadInfo;
+//    private DownloadInfo downloadInfo;
+
+    private String downloadUrl;
 
     private DLoadStatus dLoadStatus;
 
@@ -288,12 +290,25 @@ public class AppInfo implements MultiItemEntity, Parcelable {
         this.versionCode = versionCode;
     }
 
-    public DownloadInfo getDownloadInfo() {
-        return downloadInfo;
+    public String getDownloadUrl() {
+        return downloadUrl;
     }
 
-    public void setDownloadInfo(DownloadInfo downloadInfo) {
-        this.downloadInfo = downloadInfo;
+    public void setDownloadUrl(String downloadUrl) {
+        this.downloadUrl = downloadUrl;
+    }
+
+    public String getIntroduction() {
+        return introduction;
+    }
+
+
+    public List<AppInfo> getRelateAppInfoList() {
+        return relateAppInfoList;
+    }
+
+    public List<AppInfo> getSameDevAppInfoList() {
+        return sameDevAppInfoList;
     }
 
     @Override
@@ -301,106 +316,4 @@ public class AppInfo implements MultiItemEntity, Parcelable {
         return RecommendAdapter.APP;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(this.addTime);
-        dest.writeByte(this.hasSameDevApp ? (byte) 1 : (byte) 0);
-        dest.writeInt(this.videoId);
-        dest.writeString(this.source);
-        dest.writeString(this.versionName);
-        dest.writeFloat(this.ratingScore);
-        dest.writeString(this.briefShow);
-        dest.writeInt(this.developerId);
-        dest.writeInt(this.fitness);
-        dest.writeInt(this.id);
-        dest.writeInt(this.level1CategoryId);
-        dest.writeString(this.releaseKeyHash);
-        dest.writeByte(this.relateAppHasMore ? (byte) 1 : (byte) 0);
-        dest.writeInt(this.rId);
-        dest.writeInt(this.suitableType);
-        dest.writeByte(this.briefUseIntro ? (byte) 1 : (byte) 0);
-        dest.writeInt(this.ads);
-        dest.writeString(this.publisherName);
-        dest.writeInt(this.level2CategoryId);
-        dest.writeInt(this.position);
-        dest.writeByte(this.favorite ? (byte) 1 : (byte) 0);
-        dest.writeByte(this.isFavorite ? (byte) 1 : (byte) 0);
-        dest.writeInt(this.appendSize);
-        dest.writeString(this.level1CategoryName);
-        dest.writeByte(this.samDevAppHasMore ? (byte) 1 : (byte) 0);
-        dest.writeString(this.displayName);
-        dest.writeString(this.icon);
-        dest.writeString(this.screenshot);
-        dest.writeInt(this.ratingTotalCount);
-        dest.writeInt(this.adType);
-        dest.writeInt(this.apkSize);
-        dest.writeString(this.packageName);
-        dest.writeLong(this.updateTime);
-        dest.writeInt(this.grantCode);
-        dest.writeInt(this.versionCode);
-        dest.writeInt(this.diffFileSize);
-        dest.writeParcelable(this.hdIcon, flags);
-        dest.writeTypedList(this.appTags);
-    }
-
-    public AppInfo() {
-    }
-
-    protected AppInfo(Parcel in) {
-        this.addTime = in.readInt();
-        this.hasSameDevApp = in.readByte() != 0;
-        this.videoId = in.readInt();
-        this.source = in.readString();
-        this.versionName = in.readString();
-        this.ratingScore = in.readFloat();
-        this.briefShow = in.readString();
-        this.developerId = in.readInt();
-        this.fitness = in.readInt();
-        this.id = in.readInt();
-        this.level1CategoryId = in.readInt();
-        this.releaseKeyHash = in.readString();
-        this.relateAppHasMore = in.readByte() != 0;
-        this.rId = in.readInt();
-        this.suitableType = in.readInt();
-        this.briefUseIntro = in.readByte() != 0;
-        this.ads = in.readInt();
-        this.publisherName = in.readString();
-        this.level2CategoryId = in.readInt();
-        this.position = in.readInt();
-        this.favorite = in.readByte() != 0;
-        this.isFavorite = in.readByte() != 0;
-        this.appendSize = in.readInt();
-        this.level1CategoryName = in.readString();
-        this.samDevAppHasMore = in.readByte() != 0;
-        this.displayName = in.readString();
-        this.icon = in.readString();
-        this.screenshot = in.readString();
-        this.ratingTotalCount = in.readInt();
-        this.adType = in.readInt();
-        this.apkSize = in.readInt();
-        this.packageName = in.readString();
-        this.updateTime = in.readLong();
-        this.grantCode = in.readInt();
-        this.versionCode = in.readInt();
-        this.diffFileSize = in.readInt();
-        this.hdIcon = in.readParcelable(HdIcon.class.getClassLoader());
-        this.appTags = in.createTypedArrayList(AppTag.CREATOR);
-    }
-
-    public static final Parcelable.Creator<AppInfo> CREATOR = new Parcelable.Creator<AppInfo>() {
-        @Override
-        public AppInfo createFromParcel(Parcel source) {
-            return new AppInfo(source);
-        }
-
-        @Override
-        public AppInfo[] newArray(int size) {
-            return new AppInfo[size];
-        }
-    };
 }

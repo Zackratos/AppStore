@@ -37,9 +37,8 @@ public class HttpModule {
     @Singleton
     @Provides
     public RxDownload provideRxDownload(Retrofit retrofit, Application application) {
-        return RxDownload.getInstance()
+        return RxDownload.getInstance(application)
                 .retrofit(retrofit)
-                .context(application)
                 .defaultSavePath(application.getExternalFilesDir("app").getAbsolutePath())
                 .maxDownloadNumber(10)
                 .maxThread(10);

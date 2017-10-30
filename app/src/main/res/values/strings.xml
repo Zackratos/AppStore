@@ -60,6 +60,20 @@
     <string name="cate_news">新品</string>
 
 
+    <!--appinfo-->
+    <string name="info_des">应用描述</string>
+    <string name="info_detail">详细信息</string>
+    <string name="info_other_app">开发者的其他应用</string>
+    <string name="info_relate_app">相关应用</string>
+    <string name="info_update_time">更新时间</string>
+    <string name="info_last_version">最新版本</string>
+    <string name="info_app_size">应用大小</string>
+    <string name="info_developer">开发者</string>
+
+
+    <!--service-->
+    <string name="service_install">AppStore 静默安装</string>
+
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>

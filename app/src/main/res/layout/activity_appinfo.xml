@@ -26,83 +26,250 @@
                     android:id="@id/image_1"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:scaleType="centerCrop"
                     android:layout_gravity="center"
+                    android:scaleType="centerCrop"
                     android:transitionName="share" />
 
             </FrameLayout>
 
 
-            <include
-                layout="@layout/layout_toolbar"/>
-
-<!--            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin"
-                app:popupTheme="@style/AppTheme.PopupOverlay"/>-->
+            <include layout="@layout/layout_toolbar" />
 
         </android.support.design.widget.CollapsingToolbarLayout>
 
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v4.widget.NestedScrollView
-        android:id="@id/nested_scroll_view"
+
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <LinearLayout
+
+        <android.support.v4.widget.NestedScrollView
+            android:id="@id/nested_scroll_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:fitsSystemWindows="true">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@id/recycler_view_1"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="240dp">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-            </android.support.v7.widget.RecyclerView>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@id/recycler_view_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="240dp">
 
-            <com.ms.square.android.expandabletextview.ExpandableTextView
-                android:id="@id/expandable_text_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="@android:color/white"
-                app:maxCollapsedLines="4">
+                </android.support.v7.widget.RecyclerView>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:textSize="18sp"
-                    android:layout_margin="10dp"
-                    android:textColor="@android:color/black"
-                    android:text="asdfasdf"/>
-
-                <TextView
-                    android:id="@id/expandable_text"
+                <com.ms.square.android.expandabletextview.ExpandableTextView
+                    android:id="@id/expandable_text_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:textColor="#666666" />
+                    android:layout_marginTop="10dp"
+                    android:background="@android:color/white"
+                    app:maxCollapsedLines="4">
 
-                <ImageButton
-                    android:id="@id/expand_collapse"
-                    android:layout_width="wrap_content"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_margin="10dp"
+                        android:text="@string/info_des"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@id/expandable_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:textColor="#666666" />
+
+                    <ImageButton
+                        android:id="@id/expand_collapse"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right|bottom"
+                        android:background="@android:color/transparent"
+                        android:padding="16dp" />
+
+                </com.ms.square.android.expandabletextview.ExpandableTextView>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="16dp"
-                    android:layout_gravity="right|bottom"
-                    android:background="@android:color/transparent"/>
+                    android:layout_marginTop="10dp"
+                    android:background="@android:color/white"
+                    android:padding="10dp"
+                    android:orientation="vertical">
 
-            </com.ms.square.android.expandabletextview.ExpandableTextView>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_margin="10dp"
+                        android:text="@string/info_detail"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp" />
 
-        </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:orientation="horizontal">
 
-    </android.support.v4.widget.NestedScrollView>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/info_update_time"/>
+
+                        <TextView
+                            android:id="@+id/update_time"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:textColor="@android:color/black"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/info_last_version"/>
+
+                        <TextView
+                            android:id="@+id/last_version"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:textColor="@android:color/black"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/info_app_size"/>
+
+                        <TextView
+                            android:id="@+id/app_size"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:textColor="@android:color/black"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/info_developer"/>
+
+                        <TextView
+                            android:id="@+id/developer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:textColor="@android:color/black"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@id/linear_layout_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@android:color/white"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_margin="10dp"
+                        android:text="@string/info_other_app"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp"/>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@id/recycler_view_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="180dp">
+
+                    </android.support.v7.widget.RecyclerView>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@id/linear_layout_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@android:color/white"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_margin="10dp"
+                        android:text="@string/info_relate_app"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp"/>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@id/recycler_view_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="180dp">
+
+                    </android.support.v7.widget.RecyclerView>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+
+        <TextView
+            android:id="@+id/text_error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
+
+
+    </FrameLayout>
 
 </android.support.design.widget.CoordinatorLayout>

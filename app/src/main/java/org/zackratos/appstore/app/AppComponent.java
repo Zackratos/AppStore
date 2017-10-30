@@ -4,16 +4,17 @@ import android.app.Application;
 
 import com.google.gson.Gson;
 
-import org.zackratos.appstore.DownloadButtonHelper;
+import org.zackratos.appstore.DownloadButtonHelper2;
+import org.zackratos.appstore.DownloadHelper;
+import org.zackratos.appstore.Test.TestActivity;
 import org.zackratos.appstore.appinfo.AppInfoActivity;
 import org.zackratos.appstore.data.DataModule;
 import org.zackratos.appstore.error.ErrorConsumer;
+import org.zackratos.appstore.http.HttpModule;
 import org.zackratos.appstore.http.PublicParams;
 import org.zackratos.appstore.http.ServiceApi;
-import org.zackratos.appstore.http.HttpModule;
 import org.zackratos.appstore.login.LoginActivity;
 import org.zackratos.appstore.main.MainActivity;
-import org.zackratos.appstore.main.category.CategoryFragment;
 
 import javax.inject.Singleton;
 
@@ -46,7 +47,13 @@ public interface AppComponent {
 
     void inject(ErrorConsumer consumer);
 
-    void inject(DownloadButtonHelper helper);
+    void inject(DownloadButtonHelper2 helper);
+
+    void inject(DownloadHelper helper);
+
+    void inject(AppInfoActivity activity);
+
+    void inject(TestActivity activity);
 
 
 }

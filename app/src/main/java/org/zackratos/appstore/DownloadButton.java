@@ -97,7 +97,6 @@ public class DownloadButton extends View {
         canvas.drawBitmap(bitmap, null, rectF, null);
     }
 
-    private static final String TAG = "DownloadButton";
 
 
 

@@ -18,7 +18,7 @@ public class DLoadStatus {
 
     public DLoadStatus(int status) {
         this.status = status;
-        if (status != STATUS_DOWNLOADING) {
+        if (status != STATUS_DOWNLOADING && status != STATUS_PAUSE) {
             progress = 0;
         }
     }

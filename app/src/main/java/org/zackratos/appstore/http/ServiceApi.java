@@ -65,8 +65,18 @@ public interface ServiceApi {
     @GET("category/featured/{category_id}")
     Observable<BaseResult<PageBean<AppInfo>>> rxFeatured(@Path("category_id") int id, @Query("p") String params);
 
+    @GET("category/toplist/{category_id}")
+    Observable<BaseResult<PageBean<AppInfo>>> rxTopList(@Path("category_id") int id, @Query("p") String params);
+
+    @GET("category/newlist/{category_id}")
+    Observable<BaseResult<PageBean<AppInfo>>> rxNewlist(@Path("category_id") int id, @Query("p") String params);
+
+
     @GET("app/{id}")
     Call<ResponseBody> app(@Path("id") int id, @Query("p") String params);
+
+    @GET("app/{id}")
+    Observable<BaseResult<AppInfo>> rxApp(@Path("id") int id, @Query("p") String params);
 
     @GET("download/{id}")
     Call<ResponseBody> download(@Path("id") int id, @Query("p") String params);

@@ -67,7 +67,7 @@ public class InstalledFragment extends BaseFragment {
                 .map(new Function<InstalledFragment, InstalledAdapter>() {
                     @Override
                     public InstalledAdapter apply(@NonNull InstalledFragment installedFragment) throws Exception {
-//                        androidAPKs = getApps();
+
                         adapter = new InstalledAdapter(getApps());
                         adapter.setOnItemChildClickListener(itemChildClickListener());
                         return adapter;
@@ -113,18 +113,19 @@ public class InstalledFragment extends BaseFragment {
         return new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-
-                AndroidAPK androidAPK = (AndroidAPK) adapter.getData().get(position);
-                if (androidAPK.isSystem()) {
-                    showDialog(androidAPK, getString(R.string.install_un_sys));
-                    return;
+                if (view.getId() == R.id.image_2) {
+                    AndroidAPK androidAPK = (AndroidAPK) adapter.getData().get(position);
+                    if (androidAPK.isSystem()) {
+                        showDialog(androidAPK, getString(R.string.install_un_sys));
+                        return;
+                    }
+                    if (androidAPK.getPackageName().equals(getActivity().getPackageName())) {
+                        showDialog(androidAPK, getString(R.string.install_un_self));
+                        return;
+                    }
+                    uninstallPosition = position;
+                    unInstallApp(androidAPK.getPackageName());
                 }
-                if (androidAPK.getPackageName().equals(getActivity().getPackageName())) {
-                    showDialog(androidAPK, getString(R.string.install_un_self));
-                    return;
-                }
-                uninstallPosition = position;
-                unInstallApp(androidAPK.getPackageName());
                 
             }
         };
@@ -135,12 +136,13 @@ public class InstalledFragment extends BaseFragment {
                 .setIcon(androidAPK.getDrawable())
                 .setTitle(androidAPK.getAppName())
                 .setMessage(message)
-                .setPositiveButton(getString(R.string.install_un_err_pos), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                    }
-                })
+                .setPositiveButton(getString(R.string.install_un_err_pos),
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                        })
                 .setCancelable(false)
                 .create();
         dialog.setCanceledOnTouchOutside(false);
@@ -156,8 +158,6 @@ public class InstalledFragment extends BaseFragment {
         }
         getActivity().unregisterReceiver(receiver);
     }
-
-
 
     private class AppRemoveReceiver extends BroadcastReceiver {
 

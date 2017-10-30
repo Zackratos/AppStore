@@ -5,11 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
@@ -20,18 +23,22 @@ import org.zackratos.appstore.SimpleParams;
 import org.zackratos.appstore.app.App;
 import org.zackratos.appstore.app.Constant;
 import org.zackratos.appstore.base.BaseActivity;
+import org.zackratos.appstore.error.ErrorConsumer;
 import org.zackratos.appstore.http.ServiceApi;
 import org.zackratos.appstore.result.AppInfo;
+import org.zackratos.appstore.utils.RxUtils;
 
-import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  *
@@ -40,14 +47,17 @@ import retrofit2.Response;
 
 public class AppInfoActivity extends BaseActivity {
 
-    private static final String KEY_APP = "app_info";
+    private static final String KEY_ID = "id";
 
     private static final String KEY_ICON = "icon";
 
-    public static Intent newIntent(Context context, AppInfo appInfo) {
+    private static final String KEY_NAME = "name";
+
+    public static Intent newIntent(Context context, int id, String name, String icon) {
         Intent intent = new Intent(context, AppInfoActivity.class);
-        intent.putExtra(KEY_APP, appInfo);
-//        intent.putExtra(KEY_ICON, bitmap);
+        intent.putExtra(KEY_ID, id);
+        intent.putExtra(KEY_NAME, name);
+        intent.putExtra(KEY_ICON, icon);
         return intent;
     }
 
@@ -67,6 +77,36 @@ public class AppInfoActivity extends BaseActivity {
     @BindView(R.id.expandable_text_view)
     ExpandableTextView desView;
 
+    @BindView(R.id.nested_scroll_view)
+    NestedScrollView scrollView;
+
+    @BindView(R.id.update_time)
+    TextView timeView;
+
+    @BindView(R.id.last_version)
+    TextView versionView;
+
+    @BindView(R.id.app_size)
+    TextView sizeView;
+
+    @BindView(R.id.developer)
+    TextView devView;
+
+    @BindView(R.id.recycler_view_2)
+    RecyclerView otherRecycler;
+
+    @BindView(R.id.recycler_view_3)
+    RecyclerView relateRecycler;
+
+    @BindView(R.id.linear_layout_1)
+    LinearLayout otherRoot;
+
+    @BindView(R.id.linear_layout_2)
+    LinearLayout relateRoot;
+
+    @BindView(R.id.text_error)
+    TextView errorView;
+
     @Inject
     ServiceApi serviceApi;
 
@@ -75,7 +115,6 @@ public class AppInfoActivity extends BaseActivity {
 
     @Inject
     Gson gson;
-
 
 
     @Override
@@ -87,43 +126,80 @@ public class AppInfoActivity extends BaseActivity {
     protected void onViewCreated(Bundle savedInstanceState) {
         super.onViewCreated(savedInstanceState);
         setToolbar(toolbar, true);
-        shotRecycler.setLayoutManager(new LinearLayoutManager
-                (this, LinearLayoutManager.HORIZONTAL, false));
+        shotRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        otherRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        relateRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         shotRecycler.setNestedScrollingEnabled(false);
+        otherRecycler.setNestedScrollingEnabled(false);
+        relateRecycler.setNestedScrollingEnabled(false);
     }
 
+    private Disposable disposable;
 
     @Override
     protected void initEventAndData() {
-//        App.getInstance().getAppComponent().inject(this);
+        App.getInstance().getAppComponent().inject(this);
         Intent intent = getIntent();
-        AppInfo appInfo = intent.getParcelableExtra(KEY_APP);
+        int id = intent.getIntExtra(KEY_ID, 0);
+        String icon = intent.getStringExtra(KEY_ICON);
         Glide.with(this)
-                .load(String.format("%s%s", Constant.BASE_IMG_URL, appInfo.getIcon()))
+                .load(String.format("%s%s", Constant.BASE_IMG_URL, icon))
                 .into(iconImage);
-        String[] screenShot = appInfo.getScreenshot().split(",");
-        shotRecycler.setAdapter(new ShotAdapter(this, screenShot));
-        collapsingToolbarLayout.setTitle(appInfo.getDisplayName());
+        collapsingToolbarLayout.setTitle(intent.getStringExtra(KEY_NAME));
 
-/*        serviceApi.app(appInfo.getId(), gson.toJson(simpleParams))
-                .enqueue(new Callback<ResponseBody>() {
+        disposable = serviceApi.rxApp(id, gson.toJson(simpleParams))
+                .subscribeOn(Schedulers.io())
+                .compose(RxUtils.<AppInfo>handlerBaseError())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<AppInfo>() {
                     @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        ResponseBody body = response.body();
-                        try {
-                            String sdf = body.string();
-                            Log.d("TAG", "onResponse: " + sdf);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-
+                    public void accept(AppInfo appInfo) throws Exception {
+                        updateUI(appInfo);
                     }
-
+                }, new ErrorConsumer() {
                     @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                    public void handlerError(String message) {
+                        scrollView.setVisibility(View.GONE);
+                        errorView.setVisibility(View.VISIBLE);
+                        errorView.setText(message);
                     }
-                });*/
+                });
 
+    }
+
+
+
+
+    private void updateUI(AppInfo appInfo) {
+        shotRecycler.setAdapter(new ShotAdapter(AppInfoActivity.this, appInfo.getScreenshot().split(",")));
+        desView.setText(appInfo.getIntroduction());
+        timeView.setText(new SimpleDateFormat("yyyy - MM - dd").format(new Date(appInfo.getUpdateTime())));
+        versionView.setText(appInfo.getVersionName());
+        sizeView.setText(String.format("%dMb", appInfo.getApkSize() / 1024 / 1024));
+        List<AppInfo> otherApps = appInfo.getSameDevAppInfoList();
+        List<AppInfo> relateApps = appInfo.getRelateAppInfoList();
+        if (otherApps.isEmpty()) {
+            otherRoot.setVisibility(View.GONE);
+        } else {
+            otherRecycler.setAdapter(new OtherAdapter(otherApps, this));
+        }
+
+        if (relateApps.isEmpty()) {
+            relateRoot.setVisibility(View.GONE);
+        } else {
+            relateRecycler.setAdapter(new OtherAdapter(relateApps, this));
+        }
+    }
+
+
+
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (disposable != null && !disposable.isDisposed()) {
+            disposable.dispose();
+        }
     }
 }

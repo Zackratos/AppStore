@@ -9,9 +9,10 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 
 import org.zackratos.appstore.R;
-import org.zackratos.appstore.Test.TestFragment;
 import org.zackratos.appstore.base.BaseActivity;
 import org.zackratos.appstore.category.fine.FineFragment;
+import org.zackratos.appstore.category.news.NewsFragment;
+import org.zackratos.appstore.category.rank.CateRankFragment;
 import org.zackratos.appstore.main.FragmentAdapter;
 import org.zackratos.appstore.main.FragmentInfo;
 
@@ -29,9 +30,12 @@ public class CategoryActivity extends BaseActivity {
 
     private static final String KEY_ID = "id";
 
-    public static Intent newIntent(Context context, int id) {
+    private static final String KEY_NAME = "name";
+
+    public static Intent newIntent(Context context, int id, String name) {
         Intent intent = new Intent(context, CategoryActivity.class);
         intent.putExtra(KEY_ID, id);
+        intent.putExtra(KEY_NAME, name);
         return intent;
     }
 
@@ -53,6 +57,7 @@ public class CategoryActivity extends BaseActivity {
     protected void onViewCreated(Bundle savedInstanceState) {
         super.onViewCreated(savedInstanceState);
         setToolbar(toolbar, true);
+        setTitle(getIntent().getStringExtra(KEY_NAME));
         initViewPager();
         tabLayout.setupWithViewPager(viewPager);
     }
@@ -68,8 +73,8 @@ public class CategoryActivity extends BaseActivity {
         int id = getIntent().getIntExtra(KEY_ID, 0);
         List<FragmentInfo> fragmentInfos = new ArrayList<>();
         fragmentInfos.add(new FragmentInfo(FineFragment.newInstance(id), getString(R.string.cate_fine)));
-        fragmentInfos.add(new FragmentInfo(new TestFragment(), getString(R.string.cate_rank)));
-        fragmentInfos.add(new FragmentInfo(new TestFragment(), getString(R.string.cate_news)));
+        fragmentInfos.add(new FragmentInfo(CateRankFragment.newInstance(id), getString(R.string.cate_rank)));
+        fragmentInfos.add(new FragmentInfo(NewsFragment.newInstance(id), getString(R.string.cate_news)));
         viewPager.setOffscreenPageLimit(fragmentInfos.size());
         viewPager.setAdapter(new FragmentAdapter(getSupportFragmentManager(), fragmentInfos));
     }

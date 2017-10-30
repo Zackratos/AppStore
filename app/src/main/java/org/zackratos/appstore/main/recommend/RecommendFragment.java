@@ -96,7 +96,8 @@ public class RecommendFragment extends RefreshFragment<RecommendPresenter> imple
                     AppInfo appInfo = (AppInfo) adapter.getItem(position);
                     ImageView iconImage = view.findViewById(R.id.image_1);
 
-                    Intent intent = AppInfoActivity.newIntent(getActivity(), appInfo);
+//                    Intent intent = AppInfoActivity.newIntent(getActivity(), appInfo);
+                    Intent intent = AppInfoActivity.newIntent(getActivity(), appInfo.getId(), appInfo.getDisplayName(), appInfo.getIcon());
 
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 

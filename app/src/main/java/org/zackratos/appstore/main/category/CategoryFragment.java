@@ -61,7 +61,7 @@ public class CategoryFragment extends RefreshFragment<CategoryPresenter> impleme
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Category category = (Category) adapter.getData().get(position);
-                startActivity(CategoryActivity.newIntent(getActivity(), category.getId()));
+                startActivity(CategoryActivity.newIntent(getActivity(), category.getId(), category.getName()));
             }
         });
     }

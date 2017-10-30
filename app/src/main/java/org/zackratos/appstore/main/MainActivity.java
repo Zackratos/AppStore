@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import org.zackratos.appstore.R;
 import org.zackratos.appstore.RxBus;
+import org.zackratos.appstore.Test.TestActivity;
 import org.zackratos.appstore.app.App;
 import org.zackratos.appstore.base.BaseActivity;
 import org.zackratos.appstore.data.DataHelper;
@@ -100,7 +101,8 @@ public class MainActivity extends BaseActivity {
 
                 int position = 0;
                 if (id == R.id.nav_update) {
-
+                    startActivity(new Intent(MainActivity.this, TestActivity.class));
+                    return true;
                 } else if (id == R.id.nav_download) {
 
                 } else if (id == R.id.nav_uninstall) {

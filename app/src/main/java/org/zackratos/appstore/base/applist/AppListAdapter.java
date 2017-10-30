@@ -37,7 +37,6 @@ public class AppListAdapter extends BaseQuickAdapter<AppInfo, BaseViewHolder> {
             viewHolder.setText(R.id.text_3, String.format("%d .", item.getPosition() + 1));
         }
 
-
         ImageView imageView = helper.getView(R.id.image_1);
         Glide.with(imageView.getContext()).load(Constant.BASE_IMG_URL + item.getIcon()).into(imageView);
     }

@@ -2,6 +2,8 @@ package org.zackratos.appstore.mvp;
 
 import org.zackratos.appstore.app.AppComponent;
 import org.zackratos.appstore.category.fine.FineFragment;
+import org.zackratos.appstore.category.news.NewsFragment;
+import org.zackratos.appstore.category.rank.CateRankFragment;
 import org.zackratos.appstore.main.game.GameFragment;
 import org.zackratos.appstore.main.ranking.RankFragment;
 import org.zackratos.appstore.main.category.CategoryFragment;
@@ -26,5 +28,9 @@ public interface PresenterComponent {
     void inject(CategoryFragment fragment);
 
     void inject(FineFragment fragment);
+
+    void inject(CateRankFragment fragment);
+
+    void inject(NewsFragment fragment);
 
 }

@@ -19,7 +19,7 @@ import java.util.List;
 public class InstalledAdapter extends BaseQuickAdapter<AndroidAPK, BaseViewHolder> {
 
     public InstalledAdapter(@Nullable List<AndroidAPK> data) {
-        super(R.layout.item_app_list, data);
+        super(R.layout.item_manager_delete, data);
     }
 
     @Override
@@ -27,7 +27,8 @@ public class InstalledAdapter extends BaseQuickAdapter<AndroidAPK, BaseViewHolde
         helper.setImageDrawable(R.id.image_1, item.getDrawable())
                 .setText(R.id.text_1, item.getAppName())
                 .setTextColor(R.id.text_1, item.isSystem() ? Color.RED : Color.BLACK)
-                .setText(R.id.text_2, item.getApkPath());
+                .setText(R.id.text_2, item.getApkPath())
+                .addOnClickListener(R.id.image_2);
     }
 
 }

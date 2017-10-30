@@ -38,7 +38,7 @@ public class RankPresenter extends AppListPresenter {
     private Gson gson;
 
     @Inject
-    public RankPresenter(ServiceApi serviceApi, Gson gson, PageParams params) {
+    public CateRankPresenter(ServiceApi serviceApi, Gson gson, PageParams params) {
         this.serviceApi = serviceApi;
         this.gson = gson;
         this.pageParams = params;
@@ -111,5 +111,5 @@ public class RankPresenter extends AppListPresenter {
 
 
 
-    private static final String TAG = "RankPresenter";*/
+    private static final String TAG = "CateRankPresenter";*/
 }
