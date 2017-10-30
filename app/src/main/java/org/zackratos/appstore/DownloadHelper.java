@@ -1,6 +1,5 @@
 package org.zackratos.appstore;
 
-import android.app.Application;
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
@@ -78,6 +77,8 @@ public class DownloadHelper {
         this.context = context;
         fileName = appInfo.getPackageName() + ".apk";
         App.getInstance().getAppComponent().inject(this);
+
+//        rxDownload.defaultSavePath(context.getExternalFilesDir("app").getAbsolutePath());
     }
 
 
@@ -128,6 +129,7 @@ public class DownloadHelper {
                         startDownload();
                         break;
                     case DLoadStatus.STATUS_UNINSTALL:
+                        installApp();
                         break;
                     case DLoadStatus.STATUS_INSTALLED:
                         runApp();

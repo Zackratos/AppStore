@@ -2,6 +2,8 @@ package org.zackratos.appstore.http;
 
 import android.app.Application;
 
+import java.io.File;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -37,10 +39,14 @@ public class HttpModule {
     @Singleton
     @Provides
     public RxDownload provideRxDownload(Retrofit retrofit, Application application) {
+        File folder = application.getExternalFilesDir("app");
+        if (folder == null) {
+
+        }
         return RxDownload.getInstance(application)
                 .retrofit(retrofit)
-                .defaultSavePath(application.getExternalFilesDir("app").getAbsolutePath())
                 .maxDownloadNumber(10)
+                .defaultSavePath(application.getExternalFilesDir("app").getAbsolutePath())
                 .maxThread(10);
     }
 

@@ -75,10 +75,10 @@ public class TestActivity extends AppCompatActivity {
                         titleView.setText(appInfo.getDisplayName());
                         new DownloadHelper(TestActivity.this, appInfo, button).handleButton();
                     }
-                }, new ErrorConsumer() {
+                }, new Consumer<Throwable>() {
                     @Override
-                    public void handlerError(String message) {
-                        Log.d(TAG, "handlerError: ");
+                    public void accept(Throwable throwable) throws Exception {
+                        Log.d(TAG, "accept: ");
                     }
                 });
     }

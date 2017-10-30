@@ -70,9 +70,8 @@
     <string name="info_app_size">应用大小</string>
     <string name="info_developer">开发者</string>
 
-
     <!--service-->
-    <string name="service_install">AppStore 静默安装</string>
+    <string name="service_install">AppStore 自动安装</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
