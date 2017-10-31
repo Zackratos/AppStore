@@ -12,8 +12,8 @@ import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
 
-import org.zackratos.appstore.AndroidAPK;
-import org.zackratos.appstore.InstallAccessibilityService;
+import org.zackratos.appstore.common.AndroidAPK;
+import org.zackratos.appstore.common.InstallAccessibilityService;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;

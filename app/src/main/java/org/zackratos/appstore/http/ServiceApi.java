@@ -88,6 +88,6 @@ public interface ServiceApi {
     Call<ResponseBody> updateInfo(@Query("p") String params);
 
     @GET("apps/updateinfo")
-    Observable<BaseResult<List<AppInfo>>> rxUdateInfo(@Query("p") String params);
+    Observable<BaseResult<List<AppInfo>>> rxUpdateInfo(@Query("p") String params);
 
 }

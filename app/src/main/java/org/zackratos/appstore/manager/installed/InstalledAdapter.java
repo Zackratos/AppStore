@@ -6,7 +6,7 @@ import android.support.annotation.Nullable;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
-import org.zackratos.appstore.AndroidAPK;
+import org.zackratos.appstore.common.AndroidAPK;
 import org.zackratos.appstore.R;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package org.zackratos.appstore;
+package org.zackratos.appstore.common;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -13,15 +13,14 @@ import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
 
+import org.zackratos.appstore.R;
+
 /**
  *
  * Created by Administrator on 2017/10/28.
  */
 
 public class DownloadButton extends View {
-
-//    private int status;
-//    private int progress;
 
     private Paint paint;
 
@@ -96,7 +95,6 @@ public class DownloadButton extends View {
         RectF rectF = new RectF(radius / 2, radius / 2, radius * 3 / 2, radius * 3 / 2);
         canvas.drawBitmap(bitmap, null, rectF, null);
     }
-
 
 
 

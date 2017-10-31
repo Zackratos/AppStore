@@ -10,16 +10,14 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 
-import org.zackratos.appstore.DownloadButton;
-import org.zackratos.appstore.DownloadHelper;
+import org.zackratos.appstore.common.DownloadButton;
+import org.zackratos.appstore.common.DownloadHelper;
 import org.zackratos.appstore.R;
-import org.zackratos.appstore.SimpleParams;
+import org.zackratos.appstore.common.SimpleParams;
 import org.zackratos.appstore.app.App;
 import org.zackratos.appstore.app.Constant;
-import org.zackratos.appstore.error.ErrorConsumer;
 import org.zackratos.appstore.http.ServiceApi;
 import org.zackratos.appstore.result.AppInfo;
-import org.zackratos.appstore.result.IndexData;
 import org.zackratos.appstore.utils.RxUtils;
 
 import javax.inject.Inject;
@@ -27,9 +25,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 public class TestActivity extends AppCompatActivity {
@@ -64,7 +60,7 @@ public class TestActivity extends AppCompatActivity {
 
     private void init() {
 
-        serviceApi.rxApp(64151, gson.toJson(simpleParams))
+        serviceApi.rxApp(1023, gson.toJson(simpleParams))
                 .subscribeOn(Schedulers.io())
                 .compose(RxUtils.<AppInfo>handlerBaseError())
                 .observeOn(AndroidSchedulers.mainThread())

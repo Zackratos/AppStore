@@ -1,4 +1,4 @@
-package org.zackratos.appstore;
+package org.zackratos.appstore.common;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

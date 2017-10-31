@@ -1,4 +1,4 @@
-package org.zackratos.appstore;
+package org.zackratos.appstore.common;
 
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;

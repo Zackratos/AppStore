@@ -17,7 +17,7 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
-import org.zackratos.appstore.AndroidAPK;
+import org.zackratos.appstore.common.AndroidAPK;
 import org.zackratos.appstore.R;
 import org.zackratos.appstore.base.BaseFragment;
 import org.zackratos.appstore.utils.AppUtils;

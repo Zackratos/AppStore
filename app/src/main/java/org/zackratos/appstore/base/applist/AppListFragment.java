@@ -54,7 +54,7 @@ public abstract class AppListFragment<P extends AppListContract.Presenter> exten
     private AppListAdapter adapter;
 
     private void initAdapter(List<AppInfo> appInfos) {
-        adapter = new AppListAdapter(appInfos, showNumber());
+        adapter = new AppListAdapter(getActivity(), appInfos, showNumber());
 
         adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override

@@ -1,8 +1,9 @@
-package org.zackratos.appstore;
+package org.zackratos.appstore.common;
 
-import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import android.view.View;
 
 import com.google.gson.Gson;
@@ -12,6 +13,7 @@ import org.zackratos.appstore.app.ToastHelper;
 import org.zackratos.appstore.error.ErrorConsumer;
 import org.zackratos.appstore.http.PublicParams;
 import org.zackratos.appstore.http.ServiceApi;
+import org.zackratos.appstore.manager.update.UpdateParams;
 import org.zackratos.appstore.result.AppInfo;
 import org.zackratos.appstore.result.BaseResult;
 import org.zackratos.appstore.result.DownloadInfo;
@@ -32,23 +34,25 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import zlc.season.rxdownload2.RxDownload;
+import zlc.season.rxdownload2.entity.DownloadBean;
 import zlc.season.rxdownload2.entity.DownloadEvent;
 import zlc.season.rxdownload2.entity.DownloadFlag;
 import zlc.season.rxdownload2.entity.DownloadStatus;
 
 /**
  *
- * Created by Administrator on 2017/10/29.
+ * Created by xiboke on 2017/10/30.
  */
 
-public class DownloadButtonHelper2 {
+public class DownloadHelper {
 
-    private static final String TAG = "DownloadButtonHelper2";
-    private DownloadButton button;
     private AppInfo appInfo;
+    private DownloadButton button;
+
+    private String fileName;
 
     @Inject
-    Application application;
+    RxDownload rxDownload;
 
     @Inject
     ServiceApi serviceApi;
@@ -57,22 +61,29 @@ public class DownloadButtonHelper2 {
     Gson gson;
 
     @Inject
-    PublicParams publicParams;
-
-    @Inject
     SimpleParams simpleParams;
 
     @Inject
-    RxDownload rxDownload;
+    PublicParams publicParams;
+
+//    @Inject
+//    Application application;
+
+    private Context context;
 
     @Inject
     ToastHelper toastHelper;
-    
 
-    public DownloadButtonHelper2(DownloadButton button, AppInfo appInfo) {
-        this.button = button;
+
+
+    public DownloadHelper(Context context, AppInfo appInfo, DownloadButton button) {
         this.appInfo = appInfo;
+        this.button = button;
+        this.context = context;
+        fileName = appInfo.getPackageName() + ".apk";
         App.getInstance().getAppComponent().inject(this);
+
+//        rxDownload.defaultSavePath(context.getExternalFilesDir("app").getAbsolutePath());
     }
 
 
@@ -81,44 +92,32 @@ public class DownloadButtonHelper2 {
         setClick();
     }
 
+
     private void setStatus() {
         DLoadStatus dLoadStatus = appInfo.getdLoadStatus();
         if (dLoadStatus != null) {
             button.setDLoadStatus(dLoadStatus);
-            // 如果进来时正在下载，获取下载进度并刷新
-            if (dLoadStatus.getStatus() == DLoadStatus.STATUS_DOWNLOADING) {
-                downloadStatus();
-            }
             return;
         }
-        boolean installed = AppUtils.isInstalled(application, appInfo.getPackageName());
+        boolean installed = AppUtils.isInstalled(context, appInfo.getPackageName());
         if (installed) {
             updateInfo();
         } else {
-            File file = new File(application.getExternalFilesDir("app"),
-                    appInfo.getPackageName() + ".apk");
-            boolean exist = file.exists();
-            if (exist) {
-                file.delete();
-//                DLoadStatus newDLoadStatus = new DLoadStatus(DLoadStatus.STATUS_UNINSTALL);
-//                appInfo.setdLoadStatus(newDLoadStatus);
-//                button.setDLoadStatus(newDLoadStatus);
-            }
-
             DLoadStatus newDLoadStatus = new DLoadStatus(DLoadStatus.STATUS_UNDOWNLOAD);
             appInfo.setdLoadStatus(newDLoadStatus);
             button.setDLoadStatus(newDLoadStatus);
+            downloadStatus();
         }
     }
 
 
     private void setClick() {
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DLoadStatus dLoadStatus = appInfo.getdLoadStatus();
                 if (dLoadStatus == null) {
-
                     return;
                 }
                 switch (dLoadStatus.getStatus()) {
@@ -135,37 +134,35 @@ public class DownloadButtonHelper2 {
                         startDownload();
                         break;
                     case DLoadStatus.STATUS_UNINSTALL:
-//                        installApk();
+//                        autoInstallApp();
+                        installApp();
                         break;
                     case DLoadStatus.STATUS_INSTALLED:
                         runApp();
                         break;
                     default:
-                        startDownload();
                         break;
                 }
             }
         });
+
     }
 
 
-
-    private String errorMessage;
-
     private void updateInfo() {
-        Observable.just(appInfo)
+        Observable.just(this)
                 .subscribeOn(Schedulers.io())
-                .flatMap(new Function<AppInfo, ObservableSource<BaseResult<List<AppInfo>>>>() {
+                .flatMap(new Function<DownloadHelper, ObservableSource<BaseResult<List<AppInfo>>>>() {
                     @Override
-                    public ObservableSource<BaseResult<List<AppInfo>>> apply(@NonNull AppInfo appInfo) throws Exception {
+                    public ObservableSource<BaseResult<List<AppInfo>>> apply(@NonNull DownloadHelper helper) throws Exception {
                         UpdateParams updateParams = new UpdateParams();
                         updateParams.setPublicParams(publicParams);
                         updateParams.setPackageName(appInfo.getPackageName());
                         updateParams.setVersionCode(String.valueOf(AppUtils
-                                .getAppVersionCode(application, appInfo.getPackageName())));
+                                .getAppVersionCode(context, appInfo.getPackageName())));
 
                         String params = gson.toJson(updateParams);
-                        return serviceApi.rxUdateInfo(params);
+                        return serviceApi.rxUpdateInfo(params);
                     }
                 })
                 .compose(RxUtils.<List<AppInfo>>handlerBaseError())
@@ -174,12 +171,11 @@ public class DownloadButtonHelper2 {
                     @Override
                     public void accept(List<AppInfo> appInfos) throws Exception {
                         DLoadStatus dLoadStatus;
-                        if (appInfos.size() > 0) {
-                            dLoadStatus = new DLoadStatus(DLoadStatus.STATUS_UNUPDATE);
-                        } else {
+                        if (appInfos.isEmpty()) {
                             dLoadStatus = new DLoadStatus(DLoadStatus.STATUS_INSTALLED);
+                        } else {
+                            dLoadStatus = new DLoadStatus(DLoadStatus.STATUS_UNUPDATE);
                         }
-
                         appInfo.setdLoadStatus(dLoadStatus);
                         button.setDLoadStatus(dLoadStatus);
                     }
@@ -192,10 +188,65 @@ public class DownloadButtonHelper2 {
     }
 
 
-    private void downloadStatus() {
-        Observable.just(appInfo)
+    private DownloadBean downloadBean;
+
+    private DownloadBean getDownloadBean(String url) {
+        if (downloadBean == null) {
+            downloadBean = new DownloadBean.Builder(url)
+                    .setSaveName(fileName)
+                    .setSavePath(context.getExternalFilesDir("app").getAbsolutePath())
+                    .setExtra1(appInfo.getDisplayName())
+                    .setExtra2(appInfo.getBriefShow())
+                    .setExtra3(appInfo.getIcon())
+                    .setExtra4(String.valueOf(appInfo.getId()))
+                    .build();
+        }
+        return downloadBean;
+    }
+
+
+    private void startDownload() {
+        Log.d(TAG, "startDownload: ");
+        Observable.just(this)
                 .subscribeOn(Schedulers.io())
-                .compose(this.<AppInfo>downloadUrl())
+                .compose(this.<DownloadHelper>downloadUrl())
+                .map(new Function<String, DownloadBean>() {
+                    @Override
+                    public DownloadBean apply(@NonNull String s) throws Exception {
+                        return getDownloadBean(s);
+                    }
+                })
+                .flatMap(new Function<DownloadBean, ObservableSource<?>>() {
+                    @Override
+                    public ObservableSource<?> apply(@NonNull DownloadBean downloadBean) throws Exception {
+                        return rxDownload.serviceDownload(downloadBean);
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Object>() {
+                    @Override
+                    public void accept(Object o) throws Exception {
+                        downloadStatus();
+                    }
+                }, new ErrorConsumer() {
+                    @Override
+                    public void handlerError(String message) {
+                        toastHelper.show(message);
+                    }
+                });
+
+    }
+
+
+    private void pauseDownload() {
+        rxDownload.pauseServiceDownload(appInfo.getDownloadUrl()).subscribe();
+    }
+
+
+    private void downloadStatus() {
+        Observable.just(this)
+                .subscribeOn(Schedulers.io())
+                .compose(this.<DownloadHelper>downloadUrl())
                 .flatMap(new Function<String, ObservableSource<DownloadEvent>>() {
                     @Override
                     public ObservableSource<DownloadEvent> apply(@NonNull String s) throws Exception {
@@ -207,6 +258,7 @@ public class DownloadButtonHelper2 {
                     @Override
                     public void accept(DownloadEvent downloadEvent) throws Exception {
                         int status = DLoadStatus.STATUS_UNDOWNLOAD;
+                        Log.d(TAG, "accept: " + downloadEvent.getFlag());
                         switch (downloadEvent.getFlag()) {
                             case DownloadFlag.NORMAL:
                             case DownloadFlag.WAITING:
@@ -222,6 +274,7 @@ public class DownloadButtonHelper2 {
                                 break;
                             case DownloadFlag.COMPLETED:
                                 status = DLoadStatus.STATUS_UNINSTALL;
+                                installApp();
                                 break;
                             default:
                                 break;
@@ -245,85 +298,30 @@ public class DownloadButtonHelper2 {
     }
 
 
-    private Observable<?> download(String url) {
-        return rxDownload.serviceDownload(url, appInfo.getPackageName() + ".apk");
-    }
-
-
-    private void startDownload() {
-        Observable.just(this)
-                .subscribeOn(Schedulers.io())
-                .compose(this.<DownloadButtonHelper2>downloadUrl())
-                .flatMap(new Function<String, ObservableSource<?>>() {
-                    @Override
-                    public ObservableSource<?> apply(@NonNull String s) throws Exception {
-                        return download(s);
-                    }
-                })
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<Object>() {
-                    @Override
-                    public void accept(Object o) throws Exception {
-                        downloadStatus();
-                    }
-                }, new ErrorConsumer() {
-                    @Override
-                    public void handlerError(String message) {
-
-                    }
-                });
-    }
-
-
-
-    private void pauseDownload() {
-        rxDownload.pauseServiceDownload(appInfo.getDownloadUrl())
-                .subscribe(new Consumer<Object>() {
-                    @Override
-                    public void accept(Object o) throws Exception {
-
-                    }
-                }, new ErrorConsumer() {
-                    @Override
-                    public void handlerError(String message) {
-                        toastHelper.show(message);
-                    }
-                });
-    }
-
-    private void installApk(String path) {
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setDataAndType(Uri.fromFile(new File(path)),
-                "application/vnd.android.package-archive");
-        application.startActivity(intent);
-
-    }
-
     private void runApp() {
-        AppUtils.runApp(application, appInfo.getPackageName());
-
+        AppUtils.runApp(context, appInfo.getPackageName());
     }
 
 
-/*    private <T> ObservableTransformer<T, DownloadInfo> downloadInfo() {
-        return new ObservableTransformer<T, DownloadInfo>() {
-            @Override
-            public ObservableSource<DownloadInfo> apply(@NonNull Observable<T> upstream) {
-                return upstream.flatMap(new Function<T, ObservableSource<DownloadInfo>>() {
-                    @Override
-                    public ObservableSource<DownloadInfo> apply(@NonNull T t) throws Exception {
-                        DownloadInfo downloadInfo = appInfo.getDownloadInfo();
-                        if (downloadInfo == null) {
-                            return serviceApi.rxDownload(appInfo.getId(), gson.toJson(simpleParams))
-                                    .compose(RxUtils.<DownloadInfo>handlerBaseError());
-                        }
-                        return Observable.just(downloadInfo);
-                    }
-                });
-            }
-        };
-    }*/
+    private void autoInstallApp() {
+        AppUtils.installNormal(context, context.getExternalFilesDir("app")
+                .getAbsolutePath() + "/" + fileName);
+    }
 
+    private void installApp() {
+        File file = new File(context.getExternalFilesDir("app"), fileName);
+        if (!file.exists()) {
+            toastHelper.show("文件不存在");
+            return;
+        }
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setDataAndType(Uri.fromFile(file),
+                "application/vnd.android.package-archive");
+        context.startActivity(intent);
+    }
+
+
+    private static final String TAG = "DownloadHelper";
 
 
     private <T> ObservableTransformer<T, String> downloadUrl() {
@@ -352,8 +350,5 @@ public class DownloadButtonHelper2 {
             }
         };
     }
-
-
-    
 
 }

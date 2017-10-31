@@ -2,7 +2,7 @@ package org.zackratos.appstore.main.category;
 
 import com.google.gson.Gson;
 
-import org.zackratos.appstore.SimpleParams;
+import org.zackratos.appstore.common.SimpleParams;
 import org.zackratos.appstore.base.RxPresenter;
 import org.zackratos.appstore.error.ErrorConsumer;
 import org.zackratos.appstore.result.BaseResult;

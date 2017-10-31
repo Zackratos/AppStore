@@ -3,7 +3,6 @@ package org.zackratos.appstore.app;
 
 import android.app.Application;
 
-import com.bumptech.glide.DrawableTypeRequest;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 
@@ -40,7 +39,7 @@ public class App extends Application{
         if (LeakCanary.isInAnalyzerProcess(this)) {
             return;
         }
-        refWatcher = LeakCanary.install(this);
+//        refWatcher = LeakCanary.install(this);
     }
 
     public static App getInstance() {
@@ -48,7 +47,7 @@ public class App extends Application{
     }
 
     public static RefWatcher getRefWatcher() {
-//        App application = (App) context.getApplicationContext();
+
         return application.refWatcher;
     }
 

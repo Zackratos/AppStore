@@ -5,7 +5,7 @@ import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.google.gson.Gson;
 
 import org.zackratos.appstore.R;
-import org.zackratos.appstore.SimpleParams;
+import org.zackratos.appstore.common.SimpleParams;
 import org.zackratos.appstore.base.RxPresenter;
 import org.zackratos.appstore.error.ErrorConsumer;
 import org.zackratos.appstore.result.BaseResult;

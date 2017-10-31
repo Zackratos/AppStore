@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
+import org.zackratos.appstore.common.DownloadButton;
 import org.zackratos.appstore.R;
 import org.zackratos.appstore.app.Constant;
 import org.zackratos.appstore.result.AppInfo;
@@ -27,8 +28,11 @@ import java.util.List;
 public class OtherAdapter extends BaseQuickAdapter<AppInfo, BaseViewHolder> {
 
 
+    private Context context;
+
     public OtherAdapter(@Nullable List<AppInfo> data, final Context context) {
         super(R.layout.item_appinfo_other, data);
+        this.context = context;
         setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -51,6 +55,8 @@ public class OtherAdapter extends BaseQuickAdapter<AppInfo, BaseViewHolder> {
     protected void convert(BaseViewHolder helper, AppInfo item) {
         helper.setText(R.id.text_1, item.getDisplayName());
         ImageView imageView = helper.getView(R.id.image_1);
-        Glide.with(imageView.getContext()).load(Constant.BASE_IMG_URL + item.getIcon()).into(imageView);
+        Glide.with(context).load(Constant.BASE_IMG_URL + item.getIcon()).into(imageView);
+        DownloadButton button = helper.getView(R.id.download_button);
+//        new DownloadHelper(context, item, button).handleButton();
     }
 }

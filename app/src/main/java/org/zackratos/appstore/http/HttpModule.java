@@ -39,10 +39,6 @@ public class HttpModule {
     @Singleton
     @Provides
     public RxDownload provideRxDownload(Retrofit retrofit, Application application) {
-        File folder = application.getExternalFilesDir("app");
-        if (folder == null) {
-
-        }
         return RxDownload.getInstance(application)
                 .retrofit(retrofit)
                 .maxDownloadNumber(10)

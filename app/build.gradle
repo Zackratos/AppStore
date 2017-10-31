@@ -49,5 +49,6 @@ dependencies {
     compile 'com.ms-square:expandableTextView:0.1.4'
 //    compile 'zlc.season:rxdownload2:1.1.1'
     compile 'zlc.season:rxdownload2:2.0.0-beta2'
+    compile 'org.zackratos:ultimatebar:1.1.1'
 
 }

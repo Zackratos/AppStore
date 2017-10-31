@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -17,8 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.zackratos.appstore.R;
-import org.zackratos.appstore.RxBus;
-import org.zackratos.appstore.Test.TestActivity;
+import org.zackratos.appstore.common.RxBus;
 import org.zackratos.appstore.app.App;
 import org.zackratos.appstore.base.BaseActivity;
 import org.zackratos.appstore.data.DataHelper;
@@ -30,6 +30,7 @@ import org.zackratos.appstore.main.category.CategoryFragment;
 import org.zackratos.appstore.main.recommend.RecommendFragment;
 import org.zackratos.appstore.manager.ManagerActivity;
 import org.zackratos.appstore.result.UserInfo;
+import org.zackratos.ultimatebar.UltimateBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,6 +82,8 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void onViewCreated(Bundle savedInstanceState) {
+        int statusColor = ContextCompat.getColor(this, R.color.main);
+        new UltimateBar(this).setColorBarForDrawer(statusColor, statusColor);
         setToolbar(toolbar, false);
         initDrawerLayout();
         initViewPager();
@@ -101,14 +104,14 @@ public class MainActivity extends BaseActivity {
 
                 int position = 0;
                 if (id == R.id.nav_update) {
-                    startActivity(new Intent(MainActivity.this, TestActivity.class));
-                    return true;
+//                    startActivity(new Intent(MainActivity.this, TestActivity.class));
+                    position = 1;
                 } else if (id == R.id.nav_download) {
-
+                    position = 0;
                 } else if (id == R.id.nav_uninstall) {
-
+                    position = 2;
                 } else if (id == R.id.nav_setup) {
-
+                    return true;
                 } else if (id == R.id.nav_sign_up){
                     dataHelper.clearUserInfo();
                     dataHelper.clearToken();

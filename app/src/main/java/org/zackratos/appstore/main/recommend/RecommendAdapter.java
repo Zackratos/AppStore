@@ -9,7 +9,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.youth.banner.Banner;
 
-import org.zackratos.appstore.DownloadButton;
+import org.zackratos.appstore.common.DownloadButton;
 import org.zackratos.appstore.R;
 import org.zackratos.appstore.app.Constant;
 import org.zackratos.appstore.result.Banners;

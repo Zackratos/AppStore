@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,7 +20,7 @@ import com.google.gson.Gson;
 import com.ms.square.android.expandabletextview.ExpandableTextView;
 
 import org.zackratos.appstore.R;
-import org.zackratos.appstore.SimpleParams;
+import org.zackratos.appstore.common.SimpleParams;
 import org.zackratos.appstore.app.App;
 import org.zackratos.appstore.app.Constant;
 import org.zackratos.appstore.base.BaseActivity;
@@ -27,6 +28,7 @@ import org.zackratos.appstore.error.ErrorConsumer;
 import org.zackratos.appstore.http.ServiceApi;
 import org.zackratos.appstore.result.AppInfo;
 import org.zackratos.appstore.utils.RxUtils;
+import org.zackratos.ultimatebar.UltimateBar;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -124,6 +126,8 @@ public class AppInfoActivity extends BaseActivity {
 
     @Override
     protected void onViewCreated(Bundle savedInstanceState) {
+        int color = ContextCompat.getColor(this, R.color.main);
+        new UltimateBar(this).setColorBar(color, color);
         super.onViewCreated(savedInstanceState);
         setToolbar(toolbar, true);
         shotRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));

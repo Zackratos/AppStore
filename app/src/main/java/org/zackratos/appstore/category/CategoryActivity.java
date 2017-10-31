@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 
@@ -15,6 +16,7 @@ import org.zackratos.appstore.category.news.NewsFragment;
 import org.zackratos.appstore.category.rank.CateRankFragment;
 import org.zackratos.appstore.main.FragmentAdapter;
 import org.zackratos.appstore.main.FragmentInfo;
+import org.zackratos.ultimatebar.UltimateBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +57,8 @@ public class CategoryActivity extends BaseActivity {
 
     @Override
     protected void onViewCreated(Bundle savedInstanceState) {
+        int color = ContextCompat.getColor(this, R.color.main);
+        new UltimateBar(this).setColorBar(color, color);
         super.onViewCreated(savedInstanceState);
         setToolbar(toolbar, true);
         setTitle(getIntent().getStringExtra(KEY_NAME));

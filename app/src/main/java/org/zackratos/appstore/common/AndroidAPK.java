@@ -1,4 +1,4 @@
-package org.zackratos.appstore;
+package org.zackratos.appstore.common;
 
 import android.graphics.drawable.Drawable;
 
@@ -78,5 +78,9 @@ public class AndroidAPK {
 
     public String getPackageName() {
         return packageName;
+    }
+
+    public String getAppVersionCode() {
+        return appVersionCode;
     }
 }

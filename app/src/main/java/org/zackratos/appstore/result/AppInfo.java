@@ -1,11 +1,8 @@
 package org.zackratos.appstore.result;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 
-import org.zackratos.appstore.DLoadStatus;
+import org.zackratos.appstore.common.DLoadStatus;
 import org.zackratos.appstore.main.recommend.RecommendAdapter;
 
 import java.util.List;
@@ -57,14 +54,6 @@ public class AppInfo implements MultiItemEntity {
      * appTags : [{"tagId":278,"link":"sametag/278","tagName":"角色"},{"tagId":350,"link":"sametag/350","tagName":"3D RPG"}]
      * diffFileSize : 0
      */
-
-/*    public static final int STATUS_UNDOWNLOAD = 1;
-    public static final int STATUS_UNUPDATE = 2;
-    public static final int STATUS_DOWNLOADING = 3;
-    public static final int STATUS_PAUSE = 4;
-    public static final int STATUS_UNINSTALL = 5;
-    public static final int STATUS_INSTALLING = 6;
-    public static final int STATUS_INSTALLED = 7;*/
 
     private int addTime;
     private boolean hasSameDevApp;
@@ -128,7 +117,21 @@ public class AppInfo implements MultiItemEntity {
     private DLoadStatus dLoadStatus;
 
 
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
 
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
+    public void setBriefShow(String briefShow) {
+        this.briefShow = briefShow;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public int getAddTime() {
         return addTime;

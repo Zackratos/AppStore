@@ -2,11 +2,12 @@ package org.zackratos.appstore.login;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.widget.AutoCompleteTextView;
 
 import org.zackratos.appstore.R;
-import org.zackratos.appstore.RxBus;
+import org.zackratos.appstore.common.RxBus;
 import org.zackratos.appstore.app.App;
 import org.zackratos.appstore.app.ToastHelper;
 import org.zackratos.appstore.base.BaseActivity;
@@ -17,6 +18,7 @@ import org.zackratos.appstore.result.LoginResult;
 import org.zackratos.appstore.result.UserInfo;
 import org.zackratos.appstore.utils.RxUtils;
 import org.zackratos.appstore.utils.StringUtils;
+import org.zackratos.ultimatebar.UltimateBar;
 
 import javax.inject.Inject;
 
@@ -73,6 +75,8 @@ public class LoginActivity extends BaseActivity {
     protected void onViewCreated(Bundle savedInstanceState) {
         super.onViewCreated(savedInstanceState);
         setToolbar(toolbar, true);
+        int color = ContextCompat.getColor(this, R.color.main);
+        new UltimateBar(this).setColorBar(color, color);
     }
 
     @Override

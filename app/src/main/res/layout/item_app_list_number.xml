@@ -21,7 +21,7 @@
     <include
         layout="@layout/layout_appinfo"/>
 
-    <org.zackratos.appstore.DownloadButton
+    <org.zackratos.appstore.common.DownloadButton
         android:id="@id/download_button"
         android:layout_width="30dp"
         android:layout_height="30dp" />
